@@ -1,0 +1,143 @@
+﻿<Window x:Class="MainHelper.WindowsProject.HomePanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:MainHelper.WindowsProject"
+        mc:Ignorable="d"
+        Height="500" Width="1024"   WindowState="Normal" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent"  MouseLeftButtonDown="Window_MouseLeftButtonDown" >
+    <x:Code>
+        <![CDATA[
+    private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+  ]]>
+    </x:Code>
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="250"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="50"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonMenuOpenVisibil">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonOpenMenu">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonMenuOpenVisibilCloseMenu">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonOpenMenu">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonCloseMenuVisibil">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonCloseMenu">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonCloseMenuVisibilCloseMenu">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonCloseMenu">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="buttonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonMenuOpenVisibil}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCloseMenuVisibil}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="buttonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonMenuOpenVisibilCloseMenu}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCloseMenuVisibilCloseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="gridMenu" Grid.ColumnSpan="2" Width="50" HorizontalAlignment="Left" Background="#141A21" Panel.ZIndex="1" >
+            <Button x:Name="buttonOpenMenu" Style="{StaticResource MaterialDesignFlatButton}" Background="{x:Null}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 5"  >
+                <materialDesign:PackIcon   Kind="Menu" Height="25" Width="25" Foreground="#607D8B"/>
+            </Button>
+            <Button  x:Name="buttonCloseMenu" Style="{StaticResource MaterialDesignFlatButton}" Background="{x:Null}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Visibility="Hidden" >
+                <materialDesign:PackIcon Kind="ArrowLeft" Height="25" Width="25" Foreground="#607D8B" />
+            </Button>
+            <Grid VerticalAlignment="Bottom">
+                <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <ListView >
+                            <ListViewItem   Height="60">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="FormatListText" Height="25" Width="25" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Дефектура" FontFamily="Cambria Math" FontSize="16"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                        <ListView>
+                            <ListViewItem  Height="60">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="CalendarTask" Height="25" Width="25" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Задачи" FontFamily="Cambria Math" FontSize="16"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                        <ListView>
+                            <ListViewItem  Height="60">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="NotesOutline" Height="25" Width="25" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Почта" FontFamily="Cambria Math" FontSize="16"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                        <ListView>
+                            <ListViewItem   Height="60">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="PlaylistCheck" Height="25" Width="25" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Отчет" FontFamily="Cambria Math" FontSize="16"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                        <ListView>
+                            <ListViewItem   Height="60">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="ProgressWrench" Height="25" Width="25" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Поддержка" FontFamily="Cambria Math" FontSize="16"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>  
+        </Grid>
+        <Grid Grid.Column="1" Background="#141A21" Opacity="0.7">
+            
+        </Grid>
+        <StackPanel x:Name="stackPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Margin="0 0 10 0">
+            <Button  x:Name="button1"  ToolTip="Settings"  Style="{StaticResource  MaterialDesignFlatButton}" >
+                <materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Foreground="#607D8B" />
+            </Button>
+            <Button ToolTip="WindowMinimize" Style="{StaticResource MaterialDesignFlatButton}">
+                <materialDesign:PackIcon Kind="WindowMinimize" Width="20" Height="20" Foreground="#607D8B"/>
+            </Button>
+            <Button ToolTip="Close" Style="{StaticResource MaterialDesignFlatButton}">
+                <materialDesign:PackIcon Kind="Close" Width="20" Height="20" Foreground="#607D8B"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
