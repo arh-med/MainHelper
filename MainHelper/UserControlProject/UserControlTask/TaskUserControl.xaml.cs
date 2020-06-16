@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MainHelper.WindowsProject
+namespace MainHelper.UserControlProject.UserControlTask
 {
     /// <summary>
-    /// Логика взаимодействия для HomePanel.xaml
+    /// Логика взаимодействия для TaskUserControl.xaml
     /// </summary>
-    public partial class HomePanel : Window
+    public partial class TaskUserControl : UserControl
     {
-        public HomePanel()
+        public TaskUserControl()
         {
             InitializeComponent();
         }
-
-        
     }
 }

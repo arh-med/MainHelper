@@ -4,28 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:task="clr-namespace:MainHelper.UserControlProject.UserControlTask"
         xmlns:local="clr-namespace:MainHelper.WindowsProject"
         mc:Ignorable="d"
         Height="500" Width="1024"   WindowState="Normal" WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent"  MouseLeftButtonDown="Window_MouseLeftButtonDown" >
-    <x:Code>
-        <![CDATA[
-    private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-  ]]>
-    </x:Code>
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="200"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="50"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -85,7 +78,7 @@
                             <ListViewItem   Height="60">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="FormatListText" Height="25" Width="25" VerticalAlignment="Center"/>
-                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Дефектура" FontFamily="Cambria Math" FontSize="16"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Day Book" FontFamily="Cambria Math" FontSize="16"/>
                                 </StackPanel>
                             </ListViewItem>
                         </ListView>
@@ -93,7 +86,7 @@
                             <ListViewItem  Height="60">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="CalendarTask" Height="25" Width="25" VerticalAlignment="Center"/>
-                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Задачи" FontFamily="Cambria Math" FontSize="16"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Task" FontFamily="Cambria Math" FontSize="16"/>
                                 </StackPanel>
                             </ListViewItem>
                         </ListView>
@@ -101,7 +94,7 @@
                             <ListViewItem  Height="60">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="NotesOutline" Height="25" Width="25" VerticalAlignment="Center"/>
-                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Почта" FontFamily="Cambria Math" FontSize="16"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Mail" FontFamily="Cambria Math" FontSize="16"/>
                                 </StackPanel>
                             </ListViewItem>
                         </ListView>
@@ -109,7 +102,7 @@
                             <ListViewItem   Height="60">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="PlaylistCheck" Height="25" Width="25" VerticalAlignment="Center"/>
-                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Отчет" FontFamily="Cambria Math" FontSize="16"/>
+                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Video" FontFamily="Cambria Math" FontSize="16"/>
                                 </StackPanel>
                             </ListViewItem>
                         </ListView>
@@ -125,19 +118,26 @@
                 </ScrollViewer>
             </Grid>  
         </Grid>
-        <Grid Grid.Column="1" Background="#141A21" Opacity="0.7">
-            
+        <Grid Grid.Column="1" Background="#141A21" Opacity="1">
+            <Grid>
+                <task:TaskUserControl/>
+            </Grid>
+            <StackPanel x:Name="stackPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Margin="0 0 10 0">
+                <Button  x:Name="button1"  ToolTip="Settings"  Style="{StaticResource  MaterialDesignFlatButton}" >
+                    <materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Foreground="#607D8B" />
+                </Button>
+                <Button ToolTip="WindowMinimize" Style="{StaticResource MaterialDesignFlatButton}" Click="Button_ClickMinimized">
+                    <materialDesign:PackIcon Kind="WindowMinimize" Width="20" Height="20" Foreground="#607D8B"/>
+                </Button>
+                <Button ToolTip="Close" Style="{StaticResource MaterialDesignFlatButton}" Click="Button_ClickClose">
+                    <materialDesign:PackIcon Kind="Close" Width="20" Height="20" Foreground="#607D8B"/>
+                </Button>
+                <x:Code>
+                    <![CDATA[  private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => this.DragMove();       
+                           private void Button_ClickClose(object sender, RoutedEventArgs e) => this.Close(); 
+                           private void Button_ClickMinimized(object sender, RoutedEventArgs e) =>  WindowState = WindowState.Minimized; ]]>
+                </x:Code>
+            </StackPanel>
         </Grid>
-        <StackPanel x:Name="stackPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Margin="0 0 10 0">
-            <Button  x:Name="button1"  ToolTip="Settings"  Style="{StaticResource  MaterialDesignFlatButton}" >
-                <materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Foreground="#607D8B" />
-            </Button>
-            <Button ToolTip="WindowMinimize" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="WindowMinimize" Width="20" Height="20" Foreground="#607D8B"/>
-            </Button>
-            <Button ToolTip="Close" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="Close" Width="20" Height="20" Foreground="#607D8B"/>
-            </Button>
-        </StackPanel>
     </Grid>
 </Window>
