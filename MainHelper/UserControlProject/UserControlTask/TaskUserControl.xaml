@@ -20,24 +20,24 @@
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <StackPanel >
-                    <Button Margin="5 5 5 1" HorizontalContentAlignment="Left" Background="#141A21" BorderBrush="{x:Null}" >
+                    <Button Margin="5 5 5 1" HorizontalContentAlignment="Left" Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="CalendarText" VerticalAlignment="Center"/>
-                            <TextBlock Text="All" FontSize="14" FontWeight="Thin" Margin="5 0 0 0 " />
+                            <materialDesign:PackIcon Kind="CalendarText" VerticalAlignment="Center" Foreground="White"/>
+                            <TextBlock Text="All" FontSize="14" FontWeight="Thin" Margin="5 0 0 0 "  Foreground="White" />
                             <TextBlock Text="24" FontSize="5" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Margin="2"/>
                         </StackPanel>
                     </Button>
-                    <Button Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" BorderBrush="{x:Null}"  >
+                    <Button Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                         <StackPanel Orientation="Horizontal"  >
-                            <materialDesign:PackIcon Kind="CalendarToday" VerticalAlignment="Center"/>
-                            <TextBlock Text="Today" FontSize="14"  FontWeight="Thin" Margin="5 0 0 0 " />
+                            <materialDesign:PackIcon Kind="CalendarToday" VerticalAlignment="Center"  Foreground="White" />
+                            <TextBlock Text="Today" FontSize="14"  FontWeight="Thin" Margin="5 0 0 0 "  Foreground="White"  />
                             <TextBlock Text="2" FontSize="5" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Margin="2"/>
                         </StackPanel>
                     </Button>
-                    <Button Margin="5 1 5 5" HorizontalContentAlignment="Left" Background="#141A21" BorderBrush="{x:Null}"  >
+                    <Button Margin="5 1 5 5" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                         <StackPanel Orientation="Horizontal"  >
-                            <materialDesign:PackIcon Kind="CalendarWeek" VerticalAlignment="Center"/>
-                            <TextBlock Text="Next 7 days" FontSize="14"  FontWeight="Thin" Margin="5 0 0 0 " />
+                            <materialDesign:PackIcon Kind="CalendarWeek" VerticalAlignment="Center" Foreground="White" />
+                            <TextBlock Text="Next 7 days" FontSize="14"  FontWeight="Thin" Margin="5 0 0 0 " Foreground="White" />
                             <TextBlock Text="22" FontSize="5" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Margin="2"/>
                         </StackPanel>
                     </Button>
@@ -95,6 +95,19 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
+            <Grid Grid.Column="1" Background="Black" Margin="0 0 5 10">
+                <StackPanel Orientation="Horizontal" Margin="20 6" Height="30" VerticalAlignment="Top">
+                    <TextBlock Text="Today" FontSize="22" Foreground="White"  FontWeight="Thin" FontFamily="Microsoft YaHei UI" VerticalAlignment="Bottom"  />
+                    <TextBlock Text="18.06.20" FontSize="12" Foreground="Gray"  FontWeight="DemiBold" FontFamily="Calibri" VerticalAlignment="Bottom" Margin="10 0 0 0 "  />
+                    <Button   Background="Black"  Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Margin="550 0 0 0" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Add" VerticalAlignment="Center" Height="25" Width="25"  Foreground="DarkRed"/>
+                            <TextBlock Text="Add task" FontSize="18" FontWeight="Light" Margin="5 0 0 0 "  Foreground="White" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+               
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
