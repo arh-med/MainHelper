@@ -98,7 +98,7 @@
             <Grid Grid.Column="1" Background="Black" Margin="0 0 5 10">
                 <StackPanel Orientation="Horizontal" Margin="20 6" Height="30" VerticalAlignment="Top">
                     <TextBlock Text="Today" FontSize="22" Foreground="White"  FontWeight="Thin" FontFamily="Microsoft YaHei UI" VerticalAlignment="Bottom"  />
-                    <TextBlock Text="18.06.20" FontSize="12" Foreground="Gray"  FontWeight="DemiBold" FontFamily="Calibri" VerticalAlignment="Bottom" Margin="10 0 0 0 "  />
+                    <TextBlock Text="18.06.20" FontSize="12" Foreground="Gray"  FontWeight="DemiBold" FontFamily="Calibri" VerticalAlignment="Bottom" Margin="10 0 0 2 "  />
                     <Button   Background="Black"  Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Margin="550 0 0 0" >
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Add" VerticalAlignment="Center" Height="25" Width="25"  Foreground="DarkRed"/>
