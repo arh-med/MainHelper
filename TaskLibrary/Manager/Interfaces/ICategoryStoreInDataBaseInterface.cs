@@ -9,7 +9,7 @@ using TaskLibrary.Manager.Interfaces.StoreBase;
 
 namespace TaskLibrary.Manager.Interfaces
 {
-    public interface ICategoryStoreInMemoryInterface : IStoreBaseInterface<CategoryClass>
+    public interface ICategoryStoreInDataBaseInterface : IStoreBaseInterface<CategoryClass>
     {
     }
 }

@@ -2,9 +2,10 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using MainHelper.Services.ManagerData.TaskManagerData;
 using MainHelper.UserControlProject.UserControlTask;
 using TaskLibrary.Manager.Interfaces;
-using TaskLibrary.Manager.TaskManager;
+
 
 namespace MainHelper.ViewModel
 {
@@ -16,10 +17,11 @@ namespace MainHelper.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-
+            #region TaskLibrary
             SimpleIoc.Default.Register<TaskUserControlViewModelClass>();
-            SimpleIoc.Default.Register<ICategoryManagerInterface, CategoryManagerClass>();
-            SimpleIoc.Default.Register<ICategoryStoreInMemoryInterface, CategoryStoreInMemoryClass>();
+            SimpleIoc.Default.Register<ICategoryManagerInterface, CategoryManagerDataClass>();
+            SimpleIoc.Default.Register<ICategoryStoreInMemoryInterface, CategoryStoreInMemoryDataClass>();
+            #endregion
         }
 
         public TaskUserControlViewModelClass  taskUserControlViewModelClass

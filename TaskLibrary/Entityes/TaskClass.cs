@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskLibrary.Entityes.Base;
 
 namespace TaskLibrary.Entityes
 {
-    public class TaskClass
+    public class TaskClass : EntityNameClass
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
         public string Body { get; set; }
         public DateTime DateTimeTask { get; set; }
         public bool CheckTask { get; set; }
@@ -18,11 +17,11 @@ namespace TaskLibrary.Entityes
 
         public TaskClass(string Name, string Body, DateTime DateTimeTask,  DateTime AlarmTimeTask, CategoryClass CategoryTask)
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
+            CheckTask = false;
             this.Name = Name;
             this.Body = Body;
             this.DateTimeTask = DateTimeTask;
-            this.CheckTask = false;
             this.AlarmTimeTask = AlarmTimeTask;
             this.CategoryTask = CategoryTask;
 

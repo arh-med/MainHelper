@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskLibrary.Entityes.Base;
 
 namespace TaskLibrary.Entityes
 {
-    public class CategoryClass
+    public class CategoryClass : EntityNameClass
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string ColorCategory { get; set; }
+        public string ColorCategory { get; internal set; }
         public CategoryClass(string Name, string ColorCategory)
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             this.Name = Name;
             this.ColorCategory = ColorCategory;
         }
+        
     }
 }

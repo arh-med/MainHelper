@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\ManagerData\TaskManagerData\CategoryManagerDataClass.cs" />
+    <Compile Include="Services\ManagerData\TaskManagerData\CategoryStoreInDataBaseClass.cs" />
+    <Compile Include="Services\ManagerData\TaskManagerData\CategoryStoreInMemoryDataClass.cs" />
     <Compile Include="Services\ScreenBehavior.cs" />
     <Compile Include="UserControlProject\UserControlTask\TaskUserControl.xaml.cs">
       <DependentUpon>TaskUserControl.xaml</DependentUpon>

@@ -5,18 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskLibrary.Entityes;
+using TaskLibrary.Manager.Interfaces.ManagerBase;
 
 namespace TaskLibrary.Manager.Interfaces
 {
-    public interface ICategoryManagerInterface
+    public interface ICategoryManagerInterface : IManagerBaseInterface<CategoryClass>
     {
-         ObservableCollection<CategoryClass> GetAll();
-
-         void Add(CategoryClass newCategory);
-
-         void Edit(CategoryClass editCategory);
-
-         void Delete(CategoryClass removeCategory);
-        
     }
 }

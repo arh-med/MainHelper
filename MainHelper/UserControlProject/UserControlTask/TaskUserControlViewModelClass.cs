@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using TaskLibrary.Entityes;
 using TaskLibrary.Manager.Interfaces;
-using TaskLibrary.Manager.TaskManager;
+
 
 namespace MainHelper.UserControlProject.UserControlTask
 {
@@ -78,8 +78,12 @@ namespace MainHelper.UserControlProject.UserControlTask
         }
         private void OnAddCategoryCommandExecute( )
         {
-            CategoryClass category = new CategoryClass(NameCategory, ColorCategory.ToString());
-            categoryManager.Add(category);
+            if (NameCategory is null || ColorCategory is null) return;   
+            // Adding category to the repository
+            categoryManager.Add(categoryManager.Create(NameCategory, ColorCategory.ToString()));
+            categoryManager.Save();
+            //Add category to the list 
+            Categories.Add(categoryManager.Create(NameCategory, ColorCategory.ToString()));
         }
         #endregion
         public TaskUserControlViewModelClass(ICategoryManagerInterface categoryManager )

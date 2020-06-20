@@ -45,13 +45,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entityes\Base\EntityBaseClass.cs" />
+    <Compile Include="Entityes\Base\EntityNameClass.cs" />
     <Compile Include="Entityes\CategoryClass.cs" />
     <Compile Include="Entityes\TaskClass.cs" />
     <Compile Include="Manager\Interfaces\ICategoryManagerInterface.cs" />
+    <Compile Include="Manager\Interfaces\ICategoryStoreInDataBaseInterface.cs" />
     <Compile Include="Manager\Interfaces\ICategoryStoreInMemoryInterface.cs" />
-    <Compile Include="Manager\LocalMemory\LocalMemoryClass.cs" />
-    <Compile Include="Manager\TaskManager\CategoryManagerClass.cs" />
-    <Compile Include="Manager\TaskManager\CategoryStoreInMemoryClass.cs" />
+    <Compile Include="Manager\Interfaces\ManagerBase\IManagerBaseInterface.cs" />
+    <Compile Include="Manager\Interfaces\StoreBase\IStoreBaseInterface.cs" />
+    <Compile Include="Manager\LocalMemory\CategoryLocalMemoryClass.cs" />
+    <Compile Include="Manager\LocalMemory\LocalMemoryBase\LocalMemoryBaseClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
