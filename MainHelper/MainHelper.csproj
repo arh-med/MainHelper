@@ -58,6 +58,9 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Expression.Blend.Sdk.WPF.1.0.1\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -82,12 +85,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Services\ScreenBehavior.cs" />
-    <Compile Include="UserControlProject\UserControlTask\AddTaskUserControl.xaml.cs">
-      <DependentUpon>AddTaskUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControlProject\UserControlTask\TaskUserControl.xaml.cs">
       <DependentUpon>TaskUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControlProject\UserControlTask\TaskUserControlViewModelClass.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="WindowsProject\HomePanel.xaml.cs">
       <DependentUpon>HomePanel.xaml</DependentUpon>
@@ -107,10 +108,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControlProject\UserControlTask\AddTaskUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControlProject\UserControlTask\TaskUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

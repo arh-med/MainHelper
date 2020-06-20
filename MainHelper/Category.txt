@@ -1,0 +1,1 @@
+[{"Id":"a6332e2f-80bd-4078-bc66-7ec8401e7928","Name":"Work","ColorCategory":"#FF8B0000"},{"Id":"c10aa132-8fd4-4740-bc78-37af4dd6d489","Name":"Famile","ColorCategory":"#FF006400"}]

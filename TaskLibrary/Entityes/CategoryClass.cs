@@ -10,8 +10,8 @@ namespace TaskLibrary.Entityes
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ConsoleColor ColorCategory { get; set; }
-        public CategoryClass(string Name, ConsoleColor ColorCategory)
+        public string ColorCategory { get; set; }
+        public CategoryClass(string Name, string ColorCategory)
         {
             this.Id = Guid.NewGuid();
             this.Name = Name;

@@ -6,7 +6,30 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:MainHelper.UserControlProject.UserControlTask"
              mc:Ignorable="d" 
+             DataContext="{Binding taskUserControlViewModelClass, Source={StaticResource Locator}}"
              d:DesignHeight="500" d:DesignWidth="974">
+    <UserControl.Resources>
+        <Storyboard x:Key="OpenAddCategory">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="addCategoryStackPanel">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="80"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseAddCategory">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="addCategoryStackPanel">
+                <EasingDoubleKeyFrame KeyTime="0" Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="buttonOpenAddCategory">
+            <BeginStoryboard Storyboard="{StaticResource OpenAddCategory}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="buttonCloseAddCotegory">
+            <BeginStoryboard Storyboard="{StaticResource CloseAddCategory}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -15,10 +38,10 @@
         <TextBlock HorizontalAlignment="Left" Text="Task"  Foreground="#607D8B" Margin="5 7" FontSize="20"  FontWeight="Bold" FontFamily="Yu Gothic" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <StackPanel>
+            <StackPanel Background="#141A21">
                 <StackPanel >
                     <Button Margin="5 5 5 1" HorizontalContentAlignment="Left" Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
                         <StackPanel Orientation="Horizontal">
@@ -43,7 +66,39 @@
                     </Button>
                 </StackPanel>
                 <Separator/>
-                <TextBlock Text="Category" Foreground="White" FontSize="15" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="15 0" Text="Category" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic" />
+                    <Button x:Name="buttonOpenAddCategory" Height="35" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}" >
+                        <materialDesign:PackIcon Kind="Add" />
+                    </Button>
+                </StackPanel>
+                <StackPanel x:Name="addCategoryStackPanel" Height="0">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="FormatColorFill" Width="20" Height="20" Foreground="WhiteSmoke" />
+                        <TextBox  materialDesign:HintAssist.Hint="Name" Text="{Binding NameCategory}"   Width="60" Height="40"   Foreground="White" VerticalAlignment="Center" Margin="2 0"  />
+                        <ComboBox SelectedItem="{Binding ColorCategory}" materialDesign:HintAssist.Hint="Color" Width="50" Height="40"  Margin="2 0 " ItemsSource="{Binding ColorComboBoxCategory}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <materialDesign:PackIcon Margin="5,10" Foreground="{Binding}" Kind="CheckboxBlankCircle"  VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel >
+                    <UniformGrid Rows="1" Margin="5">
+                        <Button Command="{Binding AddCategoryCommand}" Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <Border BorderBrush="White" BorderThickness="1">
+                                <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center"  Foreground="White" />
+                            </Border>
+                        </Button>
+                        <Button x:Name="buttonCloseAddCotegory" Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <Border BorderBrush="White" BorderThickness="1">
+                                <materialDesign:PackIcon Kind="ChevronDoubleUp" VerticalAlignment="Center"  Foreground="White" />
+                            </Border>
+                        </Button>
+                    </UniformGrid>
+                </StackPanel>
                 <Separator/>
                 <StackPanel>
                     <StackPanel>
@@ -106,7 +161,7 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-               
+
             </Grid>
         </Grid>
     </Grid>
