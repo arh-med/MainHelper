@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskLibrary.Entityes;
 using TaskLibrary.Manager.Interfaces;
-using TaskLibrary.Manager.LocalMemory;
 using TaskLibrary.Manager.LocalMemory.LocalMemoryBase;
 
 namespace MainHelper.Services.ManagerData.TaskManagerData
 {
     public class CategoryStoreInMemoryDataClass : ICategoryStoreInMemoryInterface
     {
-        CategoryLocalMemoryClass localMemoryClass = new CategoryLocalMemoryClass("Category");
+        CategoryLocalMemoryClass localMemoryClass = new CategoryLocalMemoryClass();
 
 
         public ObservableCollection<CategoryClass> GetAll()
@@ -47,5 +43,6 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
         {
             localMemoryClass.Serialize();
         }
+       
     }
 }

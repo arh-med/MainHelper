@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskLibrary.Entityes;
 using TaskLibrary.Manager.Interfaces;
 
@@ -16,10 +12,6 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
            
         }
 
-        public CategoryClass Create(string Name, string ColorCategory)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Delete(CategoryClass removeCategory)
         {

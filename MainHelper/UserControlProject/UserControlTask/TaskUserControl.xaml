@@ -7,8 +7,10 @@
              xmlns:local="clr-namespace:MainHelper.UserControlProject.UserControlTask"
              mc:Ignorable="d" 
              DataContext="{Binding taskUserControlViewModelClass, Source={StaticResource Locator}}"
+             xmlns:validators="clr-namespace:MainHelper.UserControlProject.UserControlTask.Validators"
              d:DesignHeight="500" d:DesignWidth="974">
     <UserControl.Resources>
+        
         <Storyboard x:Key="OpenAddCategory">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="addCategoryStackPanel">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -21,13 +23,91 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="ButtonCategoryOpenVisibil">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonOpenAddCategory">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonCategoryOpenVisibilCloseMenu">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonOpenAddCategory">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonCategoryRemoveVisibil">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonRemoveCategory">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonCategoryRemoveVisibilCloseMenu">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonRemoveCategory">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        
+        
+        <Storyboard x:Key="OpenAddTask">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="addTaskStackPanel">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="106"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseAddTask">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="addTaskStackPanel">
+                <EasingDoubleKeyFrame KeyTime="0" Value="106"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonTaskOpenVisibil">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonOpenTaskStackPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonTaskOpenVisibilCloseMenu">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonOpenTaskStackPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonCloseTaskVisibil">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonCloseTaskStackPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ButtonCloseTaskVisibilCloseMenu">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="buttonCloseTaskStackPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Button.Click" SourceName="buttonOpenAddCategory">
             <BeginStoryboard Storyboard="{StaticResource OpenAddCategory}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCategoryOpenVisibil}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCategoryRemoveVisibil}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="Button.Click" SourceName="buttonCloseAddCotegory">
             <BeginStoryboard Storyboard="{StaticResource CloseAddCategory}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCategoryOpenVisibilCloseMenu}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCategoryRemoveVisibilCloseMenu}"/>
+        </EventTrigger>
+        
+        
+        <EventTrigger RoutedEvent="Button.Click" SourceName="buttonOpenTaskStackPanel">
+            <BeginStoryboard Storyboard="{StaticResource OpenAddTask}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonTaskOpenVisibil}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCloseTaskVisibil}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="buttonCloseTaskStackPanel">
+            <BeginStoryboard Storyboard="{StaticResource CloseAddTask}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonTaskOpenVisibilCloseMenu}"/>
+            <BeginStoryboard Storyboard="{StaticResource ButtonCloseTaskVisibilCloseMenu}"/>
         </EventTrigger>
     </UserControl.Triggers>
     <Grid>
@@ -48,39 +128,60 @@
                 </Grid.RowDefinitions>
                 <StackPanel Background="#141A21">
                     <StackPanel >
-                        <Button Margin="5 5 5 1" HorizontalContentAlignment="Left" Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Margin" Value="5 0 0 0"/>
+                                <Setter Property="FontWeight" Value="Thin"/>
+                            </Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Margin="5 5 5 1" HorizontalContentAlignment="Left"  Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="CalendarText" VerticalAlignment="Center" Foreground="White"/>
-                                <TextBlock Text="All" FontSize="14" FontWeight="Thin" Margin="5 0 0 0 "  Foreground="White" />
-                                <TextBlock Text="24" FontSize="5" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Margin="2"/>
+                                <materialDesign:PackIcon Kind="CalendarText"/>
+                                <TextBlock Text="All" FontSize="14" />
                             </StackPanel>
                         </Button>
-                        <Button Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                        <Button Margin="5 1" HorizontalContentAlignment="Left"  Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                             <StackPanel Orientation="Horizontal"  >
-                                <materialDesign:PackIcon Kind="CalendarToday" VerticalAlignment="Center"  Foreground="White" />
-                                <TextBlock Text="Today" FontSize="14"  FontWeight="Thin" Margin="5 0 0 0 "  Foreground="White"  />
-                                <TextBlock Text="2" FontSize="5" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Margin="2"/>
+                                <materialDesign:PackIcon Kind="CalendarToday"/>
+                                <TextBlock Text="Today" FontSize="14"/>
                             </StackPanel>
                         </Button>
                         <Button Margin="5 1 5 5" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                             <StackPanel Orientation="Horizontal"  >
-                                <materialDesign:PackIcon Kind="CalendarWeek" VerticalAlignment="Center" Foreground="White" />
-                                <TextBlock Text="Next 7 days" FontSize="14"  FontWeight="Thin" Margin="5 0 0 0 " Foreground="White" />
-                                <TextBlock Text="22" FontSize="5" Foreground="WhiteSmoke" VerticalAlignment="Bottom" Margin="2"/>
+                                <materialDesign:PackIcon Kind="CalendarWeek"/>
+                                <TextBlock Text="Next 7 days" FontSize="14"  />
                             </StackPanel>
                         </Button>
                     </StackPanel>
                     <Separator/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="15 0" Text="Category" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic" />
-                        <Button x:Name="buttonOpenAddCategory" Height="35" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}" >
-                            <materialDesign:PackIcon Kind="Add" />
-                        </Button>
+                        <Grid>
+                            <Button x:Name="buttonOpenAddCategory" Height="35" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}">
+                                <materialDesign:PackIcon Kind="Add" />
+                            </Button>
+                            <Button x:Name="buttonRemoveCategory" Height="35" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}" Visibility="Hidden">
+                                <materialDesign:PackIcon Kind="Remove" />
+                            </Button>
+                        </Grid>
                     </StackPanel>
                     <StackPanel x:Name="addCategoryStackPanel" Height="0">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="FormatColorFill" Width="20" Height="20" Foreground="WhiteSmoke" Margin="0 15 0 0 " />
-                            <TextBox  materialDesign:HintAssist.Hint="Name" Text="{Binding NameCategory}"   Width="82" Height="40" VerticalContentAlignment="Bottom" FontSize="14"  Foreground="White"    />
+                            <TextBox  materialDesign:HintAssist.Hint="Name" Width="82" Height="40" VerticalContentAlignment="Bottom" FontSize="14"  Foreground="White">
+                                <TextBox.Text>
+                                    <Binding Path="NameCategory" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validators:NameCategoryValidator/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <ComboBox Foreground="White" VerticalContentAlignment="Bottom" SelectedItem="{Binding ColorCategory}" materialDesign:HintAssist.Hint="Color" Width="46" Height="40"   Margin="2 0 " ItemsSource="{Binding ColorComboBoxCategory}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -97,7 +198,7 @@
                                     <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center"  Foreground="White" />
                                 </Border>
                             </Button>
-                            <Button x:Name="buttonCloseAddCotegory" Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <Button x:Name="buttonCloseAddCotegory" Command="{Binding HideAddCategoryCommand}" Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                                 <Border BorderBrush="White" BorderThickness="1">
                                     <materialDesign:PackIcon Kind="ChevronDoubleUp" VerticalAlignment="Center"  Foreground="White" />
                                 </Border>
@@ -122,18 +223,77 @@
                 </Grid>
             </Grid>
             <Grid Grid.Column="1" Background="Black" Margin="0 0 5 10">
-                <StackPanel Orientation="Horizontal" Margin="20 6" Height="30" VerticalAlignment="Top">
-                    <TextBlock Text="Today" FontSize="22" Foreground="White"  FontWeight="Thin" FontFamily="Microsoft YaHei UI" VerticalAlignment="Bottom"  />
-                    <TextBlock Text="18.06.20" FontSize="12" Foreground="Gray"  FontWeight="DemiBold" FontFamily="Calibri" VerticalAlignment="Bottom" Margin="10 0 0 2 "  />
-                    <Button   Background="Black"  Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Margin="550 0 0 0" >
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Add" VerticalAlignment="Center" Height="25" Width="25"  Foreground="DarkRed"/>
-                            <TextBlock Text="Add task" FontSize="18" FontWeight="Light" Margin="5 0 0 0 "  Foreground="White" />
+                <StackPanel Orientation="Vertical"  Margin="20 6" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Today" FontSize="22" Foreground="White"  FontWeight="Thin" FontFamily="Microsoft YaHei UI" VerticalAlignment="Bottom"  />
+                        <TextBlock Text="18.06.20" FontSize="12" Foreground="Gray"  FontWeight="DemiBold" FontFamily="Calibri" VerticalAlignment="Bottom" Margin="10 0 0 2 "  />
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="550 0 0 0">
+                            <Grid>
+                                <Button x:Name="buttonOpenTaskStackPanel"  Height="35" Width="35" Style="{StaticResource MaterialDesignIconButton}">
+                                    <materialDesign:PackIcon Kind="Add" Foreground="DarkRed" />
+                                </Button>
+                                <Button x:Name="buttonCloseTaskStackPanel" Height="35" Width="35"  Style="{StaticResource MaterialDesignIconButton}" Visibility="Hidden">
+                                    <materialDesign:PackIcon Kind="ChevronDoubleUp" Foreground="DarkRed" />
+                                </Button>
+                            </Grid>
+                            <TextBlock Margin="5 0" Text="Add task" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic" />
                         </StackPanel>
-                    </Button>
+                    </StackPanel>
+                    <Separator />
+                    <StackPanel x:Name="addTaskStackPanel" Height="0" >
+                        <TextBlock Text="Remind" Foreground="White" HorizontalAlignment="Center" Margin="0 0 50 0" />
+                        <StackPanel Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                            <ToggleButton x:Name="HeadlineComboBox"  IsChecked="True" Margin="5,20,20,0" Height="25" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Remind">
+                                <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                    <SolidColorBrush
+                                 Color="White" />
+                                </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                    <SolidColorBrush
+                                    Color="Red" />
+                                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                            </ToggleButton>
+                            <TextBox IsEnabled="{Binding Path=IsChecked, ElementName=HeadlineComboBox}"  materialDesign:HintAssist.Hint="Headline" Width="100" Height="40" VerticalContentAlignment="Bottom" FontSize="14"  Foreground="White"/>
+                            <ToggleButton x:Name="RemindComboBox"  IsChecked="True" Margin="60,20,20,0" Height="25" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Remind">
+                                <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                    <SolidColorBrush
+                                 Color="White" />
+                                </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                    <SolidColorBrush
+                                    Color="Red" />
+                                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                            </ToggleButton>
+                            <DatePicker Width="100" materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                        IsEnabled="{Binding Path=IsChecked, ElementName=RemindComboBox}" Margin="0 0 15 0"/>
+                            <materialDesign:TimePicker Is24Hours="True"  Width="100" Margin="5 12 0 0" IsEnabled="{Binding Path=IsChecked, ElementName=RemindComboBox}"/>
+                            <ToggleButton x:Name="CategoryComboBox"  IsChecked="True" Margin="60,20,20,0" Height="25" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Remind">
+                                <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                    <SolidColorBrush
+                                 Color="White" />
+                                </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                    <SolidColorBrush
+                                    Color="Red" />
+                                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                            </ToggleButton>
+                            <ComboBox IsEnabled="{Binding Path=IsChecked, ElementName=CategoryComboBox}" Foreground="White" VerticalContentAlignment="Bottom"  materialDesign:HintAssist.Hint="Category" Width="80" Height="40" >
+                                <ComboBoxItem>
+                                    Family
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Work
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Money
+                                </ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        <TextBox Foreground="White" Height="48"  VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="This is a text area" />
+                    </StackPanel>
                 </StackPanel>
-              
-
+               
             </Grid>
         </Grid>
     </Grid>

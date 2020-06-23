@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskLibrary.Entityes;
 using TaskLibrary.Manager.Interfaces;
 
@@ -25,10 +21,6 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
             return categoryStoreInMemoryClass.GetById(guid);
         }
 
-        public CategoryClass Create(string Name, string ColorCategory)
-        {
-            return categoryStoreInMemoryClass.Create(Name, ColorCategory);
-        }
         public void Add(CategoryClass newCategory)
         {
             categoryStoreInMemoryClass.Add(newCategory);
@@ -45,7 +37,11 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
         {
             categoryStoreInMemoryClass.Save();
         }
+        public CategoryClass Create(string Name, string Color)
+        {
+           return  categoryStoreInMemoryClass.Create(Name,  Color);
+        }
 
-       
+
     }
 }

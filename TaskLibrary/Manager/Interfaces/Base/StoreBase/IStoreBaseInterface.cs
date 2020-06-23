@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaskLibrary.Manager.Interfaces.StoreBase
 {
@@ -13,13 +9,11 @@ namespace TaskLibrary.Manager.Interfaces.StoreBase
 
         T GetById(Guid guid);
 
-        T Create(string Name, string ColorCategory);
+        void Add(T entity);
 
-        void Add(T addCategory);
+        void Edit(T entity);
 
-        void Edit(T editCategory);
-
-        void Delete(T removeCategory);
+        void Delete(T entity);
 
         void Save();
     }

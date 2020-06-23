@@ -1,1 +1,1 @@
-[{"ColorCategory":"#FF8B0000","Name":"Work","Id":"3fec5282-be37-4114-9e6a-f27e5f6f5669"},{"ColorCategory":"#FFE9967A","Name":"Money","Id":"23eed5c9-f87b-412f-83fb-9f91e7bbb3e2"}]
+[{"ColorCategory":"#FF8B0000","Name":"Word","Id":"883bb308-0a15-4afc-8f86-4de206eb4e04"},{"ColorCategory":"#FFB8860B","Name":"Friends","Id":"c315caa5-fb8a-4e28-8b03-5cb78da36ad7"},{"ColorCategory":"#FF006400","Name":"Money","Id":"4bba61a9-d71f-4996-8c06-c773215172aa"},{"ColorCategory":"#FF008B8B","Name":"Family","Id":"ad4a76a7-e145-4359-b708-0a3754811902"}]

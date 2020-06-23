@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaskLibrary.Manager.LocalMemory
 {
@@ -19,8 +15,13 @@ namespace TaskLibrary.Manager.LocalMemory
             this.Name = Name;
             if (File.Exists($@"{dbPath}\{Name}.txt"))
             {
-                string deserialze = File.ReadAllText($@"{dbPath}\{Name}.txt");
-                collectionClasses = JsonConvert.DeserializeObject<ObservableCollection<T>>(deserialze);
+                FileStream myStream = File.OpenRead($@"{dbPath}\{Name}.txt");
+                StreamReader streamReader = new StreamReader(myStream);
+                string deserialze1 = streamReader.ReadToEnd();
+                collectionClasses = JsonConvert.DeserializeObject<ObservableCollection<T>>(deserialze1);
+                streamReader.Close();
+                myStream.Close();
+               
             }
             else
             {
@@ -29,12 +30,17 @@ namespace TaskLibrary.Manager.LocalMemory
                 StreamWriter writer = new StreamWriter(myStream);
                 writer.WriteLine(json);
                 writer.Close();
+                myStream.Close();
             }
         }
         public void Serialize()
         {
+            FileStream myStream = File.Open($@"{dbPath}\{Name}.txt", FileMode.Open);
+            StreamWriter writer = new StreamWriter(myStream);
             string serialize = JsonConvert.SerializeObject(collectionClasses);
-            File.WriteAllText($@"{dbPath}\{Name}.txt", serialize);
+            writer.WriteLine(serialize);
+            writer.Close();
+            myStream.Close();
         }
     }
 }

@@ -49,13 +49,23 @@
     <Compile Include="Entityes\Base\EntityNameClass.cs" />
     <Compile Include="Entityes\CategoryClass.cs" />
     <Compile Include="Entityes\TaskClass.cs" />
-    <Compile Include="Manager\Interfaces\ICategoryManagerInterface.cs" />
-    <Compile Include="Manager\Interfaces\ICategoryStoreInDataBaseInterface.cs" />
-    <Compile Include="Manager\Interfaces\ICategoryStoreInMemoryInterface.cs" />
-    <Compile Include="Manager\Interfaces\ManagerBase\IManagerBaseInterface.cs" />
-    <Compile Include="Manager\Interfaces\StoreBase\IStoreBaseInterface.cs" />
+    <Compile Include="Manager\Implementation\CategoryImplem\CategoryManagerDataClass.cs" />
+    <Compile Include="Manager\Implementation\CategoryImplem\CategoryStoreInDataBaseClass.cs" />
+    <Compile Include="Manager\Implementation\CategoryImplem\CategoryStoreInMemoryDataClass.cs" />
+    <Compile Include="Manager\Implementation\TaskImplem\TaskManagerDataClass.cs" />
+    <Compile Include="Manager\Implementation\TaskImplem\TaskStoreInDataBaseClass.cs" />
+    <Compile Include="Manager\Implementation\TaskImplem\TaskStoreInMemoryDataClass.cs" />
+    <Compile Include="Manager\Interfaces\CategoryInterface\ICategoryManagerInterface.cs" />
+    <Compile Include="Manager\Interfaces\CategoryInterface\ICategoryStoreInDataBaseInterface.cs" />
+    <Compile Include="Manager\Interfaces\CategoryInterface\ICategoryStoreInMemoryInterface.cs" />
+    <Compile Include="Manager\Interfaces\TaskInterface\ITaskManagerInterface.cs" />
+    <Compile Include="Manager\Interfaces\TaskInterface\ITaskStoreInDataBaseInterface.cs" />
+    <Compile Include="Manager\Interfaces\TaskInterface\ITaskStoreInMemoryInterface.cs" />
+    <Compile Include="Manager\Interfaces\Base\ManagerBase\IManagerBaseInterface.cs" />
+    <Compile Include="Manager\Interfaces\Base\StoreBase\IStoreBaseInterface.cs" />
     <Compile Include="Manager\LocalMemory\CategoryLocalMemoryClass.cs" />
     <Compile Include="Manager\LocalMemory\LocalMemoryBase\LocalMemoryBaseClass.cs" />
+    <Compile Include="Manager\LocalMemory\TaskLocalMemoryClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
