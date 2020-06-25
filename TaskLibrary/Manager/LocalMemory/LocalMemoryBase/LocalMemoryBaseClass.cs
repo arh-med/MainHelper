@@ -34,13 +34,9 @@ namespace TaskLibrary.Manager.LocalMemory
             }
         }
         public void Serialize()
-        {
-            FileStream myStream = File.Open($@"{dbPath}\{Name}.txt", FileMode.Open);
-            StreamWriter writer = new StreamWriter(myStream);
+        {  
             string serialize = JsonConvert.SerializeObject(collectionClasses);
-            writer.WriteLine(serialize);
-            writer.Close();
-            myStream.Close();
+            File.WriteAllText($@"{dbPath}\{Name}.txt", serialize);
         }
     }
 }

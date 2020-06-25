@@ -31,7 +31,7 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
         }
         public void Delete(CategoryClass removeCategory)
         {
-
+            categoryStoreInMemoryClass.Delete(removeCategory);
         }
         public void Save()
         {

@@ -14,20 +14,25 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
     {
         TaskLocalMemoryClass taskMemoryClass = new TaskLocalMemoryClass();
 
-        public void Add(TaskClass addCategory)
+        public void Add(TaskClass addTask)
         {
-            taskMemoryClass.collectionClasses.Add(addCategory);
+            taskMemoryClass.collectionClasses.Add(addTask);
         }
 
 
-        public void Delete(TaskClass removeCategory)
+        public void Delete(TaskClass removeTask)
         {
-            
+            int index = taskMemoryClass.collectionClasses.IndexOf(removeTask);
+            taskMemoryClass.collectionClasses.RemoveAt(index);
         }
 
-        public void Edit(TaskClass editCategory)
+        public void Edit(TaskClass editTask)
         {
-          
+            Guid guid = editTask.Id;
+            int index = taskMemoryClass.collectionClasses.IndexOf(taskMemoryClass.collectionClasses.FirstOrDefault(c => c.Id == guid));
+            taskMemoryClass.collectionClasses.RemoveAt(index);
+            TaskClass taskClassEdit = editTask;
+            taskMemoryClass.collectionClasses.Add(taskClassEdit);
         }
 
         public ObservableCollection<TaskClass> GetAll()
@@ -43,6 +48,11 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
         public void Save()
         {
             taskMemoryClass.Serialize();
+        }
+        public TaskClass Create(string Name, string Body, DateTime DateTimeTask, DateTime AlarmTimeTask, CategoryClass CategoryTask, bool CheckAlarm, string Priority)
+        {
+            TaskClass taskClass = new TaskClass(Name, Body, DateTimeTask, AlarmTimeTask, CategoryTask, CheckAlarm, Priority);
+            return taskClass;
         }
     }
 }

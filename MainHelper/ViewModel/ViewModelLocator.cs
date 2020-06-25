@@ -21,6 +21,8 @@ namespace MainHelper.ViewModel
             SimpleIoc.Default.Register<TaskUserControlViewModelClass>();
             SimpleIoc.Default.Register<ICategoryManagerInterface, CategoryManagerDataClass>();
             SimpleIoc.Default.Register<ICategoryStoreInMemoryInterface, CategoryStoreInMemoryDataClass>();
+            SimpleIoc.Default.Register<ITaskManagerInterface, TaskManagerDataClass>();
+            SimpleIoc.Default.Register<ITaskStoreInMemoryInterface, TaskStoreInMemoryDataClass>();
             #endregion
         }
 

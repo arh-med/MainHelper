@@ -10,8 +10,6 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
     public class CategoryStoreInMemoryDataClass : ICategoryStoreInMemoryInterface
     {
         CategoryLocalMemoryClass localMemoryClass = new CategoryLocalMemoryClass();
-
-
         public ObservableCollection<CategoryClass> GetAll()
         {
             return localMemoryClass.collectionClasses;
@@ -37,7 +35,8 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
         }
         public void Delete(CategoryClass removeCategory)
         {
-
+            int index = localMemoryClass.collectionClasses.IndexOf(removeCategory);
+            localMemoryClass.collectionClasses.RemoveAt(index);
         }
         public void Save()
         {

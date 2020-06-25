@@ -16,20 +16,20 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
         {
             this.taskStoreInMemoryInterface = taskStoreInMemoryInterface;
         }
-        public void Add(TaskClass newCategory)
+        public void Add(TaskClass newTask)
         {
-            taskStoreInMemoryInterface.Add(newCategory);
+            taskStoreInMemoryInterface.Add(newTask);
         }
 
 
-        public void Delete(TaskClass removeCategory)
+        public void Delete(TaskClass removeTask)
         {
-            
+            taskStoreInMemoryInterface.Delete(removeTask);
         }
 
-        public void Edit(TaskClass editCategory)
+        public void Edit(TaskClass editTask)
         {
-           
+            taskStoreInMemoryInterface.Edit(editTask);
         }
 
         public ObservableCollection<TaskClass> GetAll()
@@ -45,6 +45,10 @@ namespace MainHelper.Services.ManagerData.TaskManagerData
         public void Save()
         {
             taskStoreInMemoryInterface.Save();
+        }
+        public TaskClass Create(string Name, string Body, DateTime DateTimeTask, DateTime AlarmTimeTask, CategoryClass CategoryTask, bool CheckAlarm, string Priority)
+        {
+           return taskStoreInMemoryInterface.Create(Name, Body, DateTimeTask, AlarmTimeTask, CategoryTask, CheckAlarm,  Priority);
         }
     }
 }
