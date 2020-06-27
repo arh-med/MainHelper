@@ -139,19 +139,19 @@
                                 <Setter Property="Foreground" Value="White"/>
                             </Style>
                         </StackPanel.Resources>
-                        <Button Margin="5 5 5 1" HorizontalContentAlignment="Left" Command="{Binding SortTaskAllCommand}"  Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
+                        <Button Margin="5 5 5 1" HorizontalContentAlignment="Left" Command="{Binding SortTaskAllCommand}" ToolTip="Sort by"  Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="CalendarText"/>
                                 <TextBlock Text="All" FontSize="14" />
                             </StackPanel>
                         </Button>
-                        <Button Margin="5 1" HorizontalContentAlignment="Left" Command="{Binding SortTaskTodayCommand}"  Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                        <Button Margin="5 1" HorizontalContentAlignment="Left" Command="{Binding SortTaskTodayCommand}" ToolTip="Sort by"  Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                             <StackPanel Orientation="Horizontal"  >
                                 <materialDesign:PackIcon Kind="CalendarToday"/>
                                 <TextBlock Text="Today" FontSize="14"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="5 1 5 5" HorizontalContentAlignment="Left" Command="{Binding SortTaskNextSevenDayCommand}" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                        <Button Margin="5 1 5 5" HorizontalContentAlignment="Left" ToolTip="Sort by" Command="{Binding SortTaskNextSevenDayCommand}" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                             <StackPanel Orientation="Horizontal"  >
                                 <materialDesign:PackIcon Kind="CalendarWeek"/>
                                 <TextBlock Text="Next 7 days" FontSize="14"  />
@@ -162,10 +162,10 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="15 0" Text="Category" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic" />
                         <Grid>
-                            <Button x:Name="buttonOpenAddCategory" Height="35" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}">
+                            <Button x:Name="buttonOpenAddCategory" Height="35" ToolTip="Add" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon Kind="Add" />
                             </Button>
-                            <Button x:Name="buttonRemoveCategory" Command="{Binding RemoveCategoryCommand}" Height="35" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}" Visibility="Hidden">
+                            <Button x:Name="buttonRemoveCategory" Command="{Binding RemoveCategoryCommand}" ToolTip="Remove" Height="35" Width="35" Margin="10 0" Style="{StaticResource MaterialDesignIconButton}" Visibility="Hidden">
                                 <materialDesign:PackIcon Kind="Remove" />
                             </Button>
                         </Grid>
@@ -193,12 +193,12 @@
                             </ComboBox>
                         </StackPanel >
                         <UniformGrid Rows="1" Margin="5">
-                            <Button Command="{Binding AddCategoryCommand}" Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <Button Command="{Binding AddCategoryCommand}" Margin="5 1" ToolTip="Add" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                                 <Border BorderBrush="White" BorderThickness="1">
                                     <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center"  Foreground="White" />
                                 </Border>
                             </Button>
-                            <Button x:Name="buttonCloseAddCotegory" Command="{Binding HideAddCategoryCommand}" Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <Button x:Name="buttonCloseAddCotegory" Command="{Binding HideAddCategoryCommand}" ToolTip="Hide" Margin="5 1" HorizontalContentAlignment="Left" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                                 <Border BorderBrush="White" BorderThickness="1">
                                     <materialDesign:PackIcon Kind="ChevronDoubleUp" VerticalAlignment="Center"  Foreground="White" />
                                 </Border>
@@ -213,7 +213,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <RadioButton GroupName="Category" Background="{Binding ColorCategory}" Command="{Binding taskUserControlViewModelClass.SortCategoryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding}" BorderBrush="Red" BorderThickness="5"/>
+                                        <RadioButton GroupName="Category" Background="{Binding ColorCategory}" ToolTip="Sort by" Command="{Binding taskUserControlViewModelClass.SortCategoryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding}" BorderBrush="Red" BorderThickness="5"/>
                                         <TextBlock Margin="5" VerticalAlignment="Center" Foreground="{Binding ColorCategory}" Text="{Binding Name}" FontWeight="Bold" FontFamily="Yu Gothic" FontSize="14"/>
                                     </StackPanel>
                                 </DataTemplate>
@@ -229,9 +229,8 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical"  Margin="20 6" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Today" FontSize="22" Foreground="White"  FontWeight="Thin" FontFamily="Microsoft YaHei UI" VerticalAlignment="Bottom"  />
-                        <TextBlock Text="18.06.20" FontSize="12" Foreground="Gray"  FontWeight="DemiBold" FontFamily="Calibri" VerticalAlignment="Bottom" Margin="10 0 0 2 "  />
-                        <ToggleButton Margin="350 0 0 0" IsChecked="{Binding CheckTask}" Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                        <TextBlock Text="{Binding SrotName}" Width="200" FontSize="22" Foreground="White"  FontWeight="Thin" FontFamily="Microsoft YaHei UI" VerticalAlignment="Bottom"  />
+                        <ToggleButton Margin="280 0 0 0" IsChecked="{Binding CheckTask}" Style="{StaticResource MaterialDesignSwitchToggleButton}">
                             <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                                 <SolidColorBrush   Color="White" />
                             </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
@@ -242,10 +241,10 @@
                         <TextBlock Margin="10 0"   Text="Completed tasks" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic"  />
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0 0 0 0">
                             <Grid>
-                                <Button x:Name="buttonOpenTaskStackPanel"  Height="35" Width="35" Style="{StaticResource MaterialDesignIconButton}">
+                                <Button x:Name="buttonOpenTaskStackPanel" ToolTip="Add"  Height="35" Width="35" Style="{StaticResource MaterialDesignIconButton}">
                                     <materialDesign:PackIcon Kind="Add" Foreground="DarkRed" />
                                 </Button>
-                                <Button x:Name="buttoRemoveTaskStackPanel" Command="{Binding RemoveTaskCommand}" Height="35" Width="35"  Style="{StaticResource MaterialDesignIconButton}" Visibility="Hidden">
+                                <Button x:Name="buttoRemoveTaskStackPanel" Command="{Binding RemoveTaskCommand}" ToolTip="Remove"  Height="35" Width="35"  Style="{StaticResource MaterialDesignIconButton}" Visibility="Hidden">
                                     <materialDesign:PackIcon Kind="Remove" Foreground="DarkRed" />
                                 </Button>
                             </Grid>
@@ -273,7 +272,7 @@
                             </ComboBox>
                             <DatePicker  SelectedDate="{Binding Data}" Width="100" materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                          Margin="50 4 0 0" Foreground="White"/>
-                            <Button Command="{Binding DatePickerNow}"   VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"   HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 0 0 0" Width="49" Height="24" >
+                            <Button Command="{Binding DatePickerNow}"   VerticalAlignment="Bottom" ToolTip="Today's date" VerticalContentAlignment="Bottom"   HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}" Margin="0 0 0 0" Width="49" Height="24" >
                                 <materialDesign:PackIcon Height="17" Width="17"  Kind="CalendarArrowRight"   Foreground="#898989" />
                             </Button>
                             <materialDesign:TimePicker SelectedTime="{Binding Time}" Is24Hours="True"  Width="100" Margin="0 15 0 0"  Foreground="White"/>
@@ -291,12 +290,12 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <UniformGrid Rows="1" Margin="0 5" >
-                                <Button Command="{Binding AddTaskCommand}"  HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}"  >
+                                <Button Command="{Binding AddTaskCommand}"  HorizontalContentAlignment="Left" ToolTip="Add"  Style="{StaticResource MaterialDesignFlatButton}"  >
                                     <Border BorderBrush="DarkRed" BorderThickness="1">
                                         <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center"  Foreground="DarkRed" />
                                     </Border>
                                 </Button>
-                                <Button Command="{Binding HideTaskPanel}"  x:Name="buttonCloseTaskStackPanel"   Margin="5 1" HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}"  >
+                                <Button Command="{Binding HideTaskPanel}"  x:Name="buttonCloseTaskStackPanel" ToolTip="Hide"   Margin="5 1" HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}"  >
                                     <Border BorderBrush="DarkRed" BorderThickness="1">
                                         <materialDesign:PackIcon Kind="ChevronDoubleUp" VerticalAlignment="Center"  Foreground="DarkRed" />
                                     </Border>
@@ -324,7 +323,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button  Command="{Binding taskUserControlViewModelClass.ComletedTaskComman, Source={StaticResource Locator}}" CommandParameter="{Binding}" Margin="5 0" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Background="Transparent"  >
+                                        <Button ToolTip="Compled"  Command="{Binding taskUserControlViewModelClass.ComletedTaskComman, Source={StaticResource Locator}}" CommandParameter="{Binding}" Margin="5 0" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Background="Transparent"  >
                                             <materialDesign:PackIcon Kind="CheckboxBlankCircleOutline"/>
                                         </Button>
                                         <TextBlock Margin="10 0" TextWrapping="Wrap"  VerticalAlignment="Center"  Text="{Binding Body}" Width="500" Foreground="{Binding CategoryTask.ColorCategory}" FontSize="15"/>

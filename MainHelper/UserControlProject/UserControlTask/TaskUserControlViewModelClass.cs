@@ -55,6 +55,19 @@ namespace MainHelper.UserControlProject.UserControlTask
                 Set(ref selectedCategory, value);
             }
         }
+
+        private string sortName = "All";
+        public string SrotName
+        {
+            get
+            {
+                return sortName;
+            }
+            set
+            {
+                Set(ref sortName, value);
+            }
+        }
         #endregion
         #region Collections Category
         private ObservableCollection<CategoryClass>  categories;
@@ -140,7 +153,7 @@ namespace MainHelper.UserControlProject.UserControlTask
                     Tasks.Add(task);
                 }
             }
-           
+            SrotName = categoryClass.Name;
 
         }
         #endregion
@@ -341,6 +354,7 @@ namespace MainHelper.UserControlProject.UserControlTask
         {
             Tasks.Clear();
             Tasks = new ObservableCollection<TaskClass>(taskManager.GetAll());
+            SrotName = "All";
         }
         public ICommand SortTaskTodayCommand { get; }
         private bool CanSortTaskTodayCommandExecute()
@@ -359,7 +373,7 @@ namespace MainHelper.UserControlProject.UserControlTask
                     Tasks.Add(task);
                 }
             }
-
+            SrotName = "Today";
         }
         public ICommand SortTaskNextSevenDayCommand { get; }
         private bool CanSortTaskNextSevenDayCommandExecute()
@@ -381,7 +395,7 @@ namespace MainHelper.UserControlProject.UserControlTask
                     }
                 }
             }
-           
+            SrotName = "Next 7 days";
 
         }
         public ICommand ComletedTaskComman { get; }
