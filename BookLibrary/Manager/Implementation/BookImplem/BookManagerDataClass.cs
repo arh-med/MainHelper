@@ -18,7 +18,7 @@ namespace BookLibrary.Manager.Implementation.BookImplem
             bookStoreInMemoryInterface.Add(entity);
         }
 
-        public BookClass Create(string Headline, string ContentBook, DateTime DateBook, List<CategoryClass> LabelCategory)
+        public BookClass Create(string Headline, string ContentBook, DateTime DateBook, ObservableCollection<CategoryClass> LabelCategory)
         {
             return bookStoreInMemoryInterface.Create(Headline, ContentBook, DateBook, LabelCategory);
         }

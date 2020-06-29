@@ -45,12 +45,12 @@
         <Storyboard x:Key="OpenNewLabelPanel">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="NewLabelStackPanel">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="180"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseNewLabelPanel">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="NewLabelStackPanel">
-                <EasingDoubleKeyFrame KeyTime="0" Value="180"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -126,7 +126,7 @@
                 <!--Заголовок выдвижной панели-->
                 <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Top">
                     <!--Дата-->
-                    <DatePicker Width="100" materialDesign:HintAssist.Hint="Pick Date" Margin="10 0" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Foreground="White" VerticalAlignment="Top"/>
+                    <DatePicker SelectedDate="{Binding Data}" Width="100" materialDesign:HintAssist.Hint="Pick Date" Margin="10 0" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Foreground="White" VerticalAlignment="Top"/>
                     <UniformGrid Rows="1" Margin="0 10" VerticalAlignment="Top" >
                         <Button   HorizontalContentAlignment="Left" ToolTip="Back"  Style="{StaticResource MaterialDesignFlatButton}"  >
                             <materialDesign:PackIcon Kind="ArrowLeftBoldBox" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
@@ -157,36 +157,40 @@
                     <StackPanel Orientation="Vertical">
                         <!--Заголовк для новой записи-->
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="Headline" Width="250" HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="10 0"/>
-                            <ComboBox   Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="100" Height="40" FontSize="14">
+                            <TextBox  materialDesign:HintAssist.Hint="Headline" Text="{Binding Headline}" Width="250" HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="10 0"/>
+                            <ComboBox SelectedItem="{Binding SelectCategory}" ItemsSource="{Binding Categories}"  Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="100" Height="40" FontSize="14">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
-
+                                                <materialDesign:PackIcon Margin="5,10" Foreground="{Binding ColorCategory}" Kind="CheckboxBlankCircle"  VerticalAlignment="Center"/>
+                                                <TextBlock Margin="5" VerticalAlignment="Center" Foreground="White" Text="{Binding Name}" FontFamily="Yu Gothic" FontSize="14"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <Button  ToolTip="AddLabel" Margin="10 0"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
+                            <Button Command="{Binding AddCategoryInListCommand}" ToolTip="AddLabel" Margin="10 0"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
                                 <materialDesign:PackIcon Kind="BookmarkAddOutline" Foreground="#898989" Width="20" Height="20"  />
                             </Button>
                             <TextBlock Text="New label" Foreground="#898989" VerticalAlignment="Bottom" Margin="0 0 0 5"/>
                             <StackPanel x:Name="NewLabelStackPanel" Orientation="Horizontal" Width="0" >
-                                <TextBox Margin="10 0" materialDesign:HintAssist.Hint="Name" Width="82" Height="40" VerticalContentAlignment="Bottom" FontSize="14"  Foreground="White">
+                                <TextBox Margin="10 0" Text="{Binding NameCategory}" materialDesign:HintAssist.Hint="Name" Width="65" Height="40" VerticalContentAlignment="Bottom" FontSize="14"  Foreground="White">
 
                                 </TextBox>
-                                <ComboBox Foreground="White" VerticalContentAlignment="Bottom"  materialDesign:HintAssist.Hint="Color" Width="46" Height="40"   Margin="2 0">
+                                <ComboBox Foreground="White" SelectedItem="{Binding ColorCategory}" VerticalContentAlignment="Bottom" ItemsSource="{Binding ColorComboBoxCategory}"  materialDesign:HintAssist.Hint="Color" Width="45" Height="40"   Margin="2 0">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel>
-                                                <materialDesign:PackIcon Margin="5,10" Height="20" Width="15" Kind="CheckboxBlankCircle"  VerticalAlignment="Center" />
+                                                <materialDesign:PackIcon Margin="5,10" Height="20" Width="15" Kind="CheckboxBlankCircle" Foreground="{Binding}"  VerticalAlignment="Center" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <Button x:Name="CloseNewLabelStackPanelButton"   ToolTip="AddLabel" Margin="10 0"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
+                                <Button ToolTip="AddNewLabel" Margin="10 0" Command="{Binding AddCategoryCommand}"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
+                                    <materialDesign:PackIcon Kind="TooltipAdd" Foreground="#898989" Width="20" Height="20"  />
+                                </Button>
+                                <Button x:Name="CloseNewLabelStackPanelButton"   ToolTip="AddLabel"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
                                     <materialDesign:PackIcon Kind="ChevronDoubleLeft" Foreground="#898989" Width="20" Height="20"  />
                                 </Button>
                             </StackPanel>
@@ -196,19 +200,32 @@
                             </Button>
                         </StackPanel>
                         <!--Метки для новой записи-->
-                        <ItemsControl Foreground="White" VerticalAlignment="Bottom" Margin="10 0">
+                        <ItemsControl ItemsSource="{Binding CategoryClassesList}" Foreground="White" VerticalAlignment="Bottom" Margin="10 0">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-                            <TextBlock Text="#Label1" Margin="0 0 10 0"/>
-                            <TextBlock Text="#Label2" Margin="0 0 10 0"/>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="#" Margin="0 0 10 0" Foreground="{Binding ColorCategory}"/>
+                                        <TextBlock Text="{Binding Name}" Margin="0 0 10 0" Foreground="{Binding ColorCategory}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                           
                         </ItemsControl>
                         <!--Текст новой записи-->
-                        <TextBox Margin="10 10 0 0" materialDesign:HintAssist.Hint="Content" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="White" Height="300"  AcceptsReturn="True"  VerticalScrollBarVisibility="Auto"  >
+                        <TextBox Text="{Binding Content}" Margin="10 10 0 0" materialDesign:HintAssist.Hint="Content" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="White" Height="300"  AcceptsReturn="True"  VerticalScrollBarVisibility="Auto"  >
                        
                         </TextBox>
+                        <Button Command="{Binding AddNewContentCommand}"  Width="200"  ToolTip="Add New Content" Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Add new content" Foreground="White"/>
+                                <materialDesign:PackIcon Margin="10 0" Kind="AddBox" Foreground="White" Width="20" Height="20"  />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -216,16 +233,23 @@
             <StackPanel>
                 <!--Заголовок панели просмотра-->
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Headline" HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="20 0"/>
-                    <ItemsControl Margin="20 0" Foreground="White" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding HeadlineLastDay}"  HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="20 0"/>
+                    <ItemsControl ItemsSource="{Binding CategoryClassesListLastDay}" Foreground="White" VerticalAlignment="Bottom" Margin="20 0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                        <TextBlock Text="#Lable1" Margin="0 0 10 0"/>
-                        <TextBlock Text="#Lable1" Margin="0 0 10 0"/>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="#" Margin="0 0 10 0" Foreground="{Binding ColorCategory}"/>
+                                    <TextBlock Text="{Binding Name}" Margin="0 0 10 0" Foreground="{Binding ColorCategory}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
                     </ItemsControl>
+
                 </StackPanel>
                 <Separator Margin="20 0 20 0"/>
                 <!--Поиск по метки -->
@@ -255,26 +279,7 @@
                                 <List MarkerStyle="None" >
                                     <ListItem>
                                         <Paragraph TextAlignment="Left" FontSize="15" >
-                                            "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                            "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                            "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                            "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                            "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                            "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
-                             "Да, здесь, в этом лесу был этот дуб, с которым мы были согласны", подумал князь Андрей...
+                                            <Run Text="{Binding ContentLastDay}"/>
                                         </Paragraph>
                                     </ListItem>
                                 </List>

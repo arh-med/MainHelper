@@ -1,1 +1,1 @@
-[]
+[{"ColorCategory":"#FF8B0000","Name":"Рабочий день","Id":"f985367b-094f-4705-acb1-8047c88d1778"},{"ColorCategory":"#FFB8860B","Name":"Happy","Id":"8fed3d05-b985-4fa1-b4fc-f3e0999aca90"}]
