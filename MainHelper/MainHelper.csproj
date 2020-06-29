@@ -88,6 +88,7 @@
     <Compile Include="UserControlProject\UserControlBook\BookUserControl.xaml.cs">
       <DependentUpon>BookUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControlProject\UserControlBook\BookUserControlViewModel.cs" />
     <Compile Include="UserControlProject\UserControlTask\TaskUserControl.xaml.cs">
       <DependentUpon>TaskUserControl.xaml</DependentUpon>
     </Compile>
@@ -160,6 +161,10 @@
     <Resource Include="Picture\logoza.ru.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BookLibrary\BookLibrary.csproj">
+      <Project>{f85239bc-f1be-4768-bff2-6a5959ec1c90}</Project>
+      <Name>BookLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskLibrary\TaskLibrary.csproj">
       <Project>{d9b4ebda-0ec9-4601-af19-ec947273b09c}</Project>
       <Name>TaskLibrary</Name>

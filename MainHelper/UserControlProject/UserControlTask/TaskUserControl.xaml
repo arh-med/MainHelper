@@ -126,6 +126,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <!--Панель сортировки-->
                 <StackPanel Background="#141A21">
                     <StackPanel >
                         <StackPanel.Resources>
@@ -158,7 +159,8 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <Separator/>
+                    <Separator/> 
+                    <!--Панель для добавление новой категории-->
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="15 0" Text="Category" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic" />
                         <Grid>
@@ -208,6 +210,7 @@
                     <Separator/>
                 </StackPanel>
                 <Grid Grid.Row="1" >
+                    <!--Список категории-->
                     <ScrollViewer>
                         <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
                             <ListView.ItemTemplate>
@@ -228,6 +231,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical"  Margin="20 6" VerticalAlignment="Top">
+                    <!--Заголовок выдвижной панели -->
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding SrotName}" Width="200" FontSize="22" Foreground="White"  FontWeight="Thin" FontFamily="Microsoft YaHei UI" VerticalAlignment="Bottom"  />
                         <ToggleButton Margin="280 0 0 0" IsChecked="{Binding CheckTask}" Style="{StaticResource MaterialDesignSwitchToggleButton}">
@@ -252,12 +256,14 @@
                         </StackPanel>
                     </StackPanel>
                     <Separator />
+                    <!--Выдвижая панель-->
                     <StackPanel x:Name="addTaskStackPanel" Height="0" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Priority" Foreground="White" HorizontalAlignment="Center" Margin="50 0"  />
                             <TextBlock Text="Remind" Foreground="White" HorizontalAlignment="Center"  Margin="140 0" />
                             <TextBlock Text="Caterogy" Foreground="White" HorizontalAlignment="Center" Margin="40 0"  />
                         </StackPanel>
+                        <!--Дата,Время, Категория -->
                         <StackPanel Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
                             <ComboBox Margin="20 0"  Text="{Binding Priority}"  materialDesign:HintAssist.Hint="Without" Width="100" Height="40" VerticalContentAlignment="Bottom" FontSize="14"  Foreground="White">
                                 <ComboBoxItem>
@@ -302,6 +308,7 @@
                                 </Button>
                             </UniformGrid>
                         </StackPanel>
+                        <!--Текс для новой задачи-->
                         <TextBox Text="{Binding Body}" Foreground="White" Height="48"  VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
                             VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="This is a text area, to enter task" />
                     </StackPanel>
@@ -309,6 +316,7 @@
                     </StackPanel>
                 </StackPanel>
                 <Grid Grid.Row="1">
+                    <!--Список задач-->
                     <ScrollViewer>
                         <ListView x:Name="ListViewTask" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ListView.Resources>

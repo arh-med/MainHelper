@@ -432,7 +432,7 @@ namespace MainHelper.UserControlProject.UserControlTask
                              taskManager.Edit(task);
                              Tasks.Clear();
                              Tasks = new ObservableCollection<TaskClass>(taskManager.GetAll());
-                             System.Media.SystemSounds.Asterisk.Play();
+                             //System.Media.SystemSounds.Asterisk.Play();
                          }    
                      }
                  }

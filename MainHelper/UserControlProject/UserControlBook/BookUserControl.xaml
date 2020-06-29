@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MainHelper.UserControlProject.UserControlBook"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             DataContext="{Binding bookUserControlViewModel, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="974">
     <UserControl.Resources>
@@ -120,11 +121,11 @@
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" Text="Book"  Foreground="#607D8B" Margin="5 7" FontSize="20"  FontWeight="Bold" FontFamily="Yu Gothic" />
         <StackPanel Grid.Row="1">
-            <!--Hide StacPanel-->
+            <!--Выдвижная панель-->
             <StackPanel  x:Name="NewEntryStackPanel" Margin="10 0" Orientation="Vertical" Height="50" VerticalAlignment="Top">
-                <!--Headline-->
+                <!--Заголовок выдвижной панели-->
                 <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Top">
-                    <!--Data-->
+                    <!--Дата-->
                     <DatePicker Width="100" materialDesign:HintAssist.Hint="Pick Date" Margin="10 0" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Foreground="White" VerticalAlignment="Top"/>
                     <UniformGrid Rows="1" Margin="0 10" VerticalAlignment="Top" >
                         <Button   HorizontalContentAlignment="Left" ToolTip="Back"  Style="{StaticResource MaterialDesignFlatButton}"  >
@@ -134,7 +135,7 @@
                             <materialDesign:PackIcon Kind="ArrowRightBoldBox" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
                         </Button>
                     </UniformGrid>
-                    <!--Add-->
+                    <!--Управление выдвижением-->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="590 0">
                         <Grid>
                             <Button x:Name="OpenNewEntryPanelButton"  HorizontalContentAlignment="Left" ToolTip="Back"  Style="{StaticResource MaterialDesignFlatButton}"  >
@@ -151,9 +152,10 @@
                         <TextBlock Margin="5 0" Text="New entry" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic" />
                     </StackPanel>
                 </StackPanel>
-                <!--New Entry StacPanel-->
+                <!--Выдвижая панель в развернутом виде-->
                 <StackPanel>
                     <StackPanel Orientation="Vertical">
+                        <!--Заголовк для новой записи-->
                         <StackPanel Orientation="Horizontal">
                             <TextBox Text="Headline" Width="250" HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="10 0"/>
                             <ComboBox   Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="100" Height="40" FontSize="14">
@@ -193,6 +195,7 @@
                                 <materialDesign:PackIcon Kind="ChevronDoubleRight" Foreground="#898989" Width="20" Height="20"  />
                             </Button>
                         </StackPanel>
+                        <!--Метки для новой записи-->
                         <ItemsControl Foreground="White" VerticalAlignment="Bottom" Margin="10 0">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -202,15 +205,16 @@
                             <TextBlock Text="#Label1" Margin="0 0 10 0"/>
                             <TextBlock Text="#Label2" Margin="0 0 10 0"/>
                         </ItemsControl>
+                        <!--Текст новой записи-->
                         <TextBox Margin="10 10 0 0" materialDesign:HintAssist.Hint="Content" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="White" Height="300"  AcceptsReturn="True"  VerticalScrollBarVisibility="Auto"  >
                        
                         </TextBox>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <!--Read StackPanle-->
+            <!--Панель просмотра-->
             <StackPanel>
-                <!--Headline-->
+                <!--Заголовок панели просмотра-->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Headline" HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="20 0"/>
                     <ItemsControl Margin="20 0" Foreground="White" VerticalAlignment="Bottom">
@@ -224,7 +228,7 @@
                     </ItemsControl>
                 </StackPanel>
                 <Separator Margin="20 0 20 0"/>
-                <!--Search-->
+                <!--Поиск по метки -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 20 0">
                     <ComboBox    Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="100"  FontSize="14" VerticalAlignment="Top"  >
                         <ComboBox.ItemTemplate>
@@ -244,7 +248,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <!--Paragraph-->
+                    <!--Текс в панели просмотра-->
                     <StackPanel>
                         <FlowDocumentReader x:Name="MenuFlowDocumentReader" Foreground="White" Height="340" Width="970">
                             <FlowDocument  ColumnGap="10" IsColumnWidthFlexible="True" >
@@ -277,7 +281,7 @@
                             </FlowDocument>
                         </FlowDocumentReader>
                     </StackPanel>
-                    <!--Search List-->
+                    <!--Список поиска по метки-->
                     <StackPanel Width="100">
                         <ListView>
                             <ListViewItem>
