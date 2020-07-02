@@ -16,7 +16,8 @@ namespace MainHelper.UserControlProject.UserControlBook
 {
    public class BookUserControlViewModel: ViewModelBase
     {
-      
+        
+
         #region Category
         ICategoryBookManagerInterface categoryManager;
         private string nameCategory;
@@ -54,6 +55,19 @@ namespace MainHelper.UserControlProject.UserControlBook
             set
             {
                 Set(ref selectCategory, value);
+            }
+        }
+        private CategoryClass selectCategorySearch;
+        public CategoryClass SelectCategorySearch
+        {
+            get
+            {
+                return selectCategorySearch;
+
+            }
+            set
+            {
+                Set(ref selectCategorySearch, value);
             }
         }
         #endregion
@@ -138,61 +152,47 @@ namespace MainHelper.UserControlProject.UserControlBook
             set
             {
                 Set(ref data, value);
-                if (Books.Count != 0)
+                if (value == new DateTime()) return;
+                #region SortBooksvsData
+                Books.Clear();
+                foreach (BookClass book in new ObservableCollection<BookClass>(bookManager.GetAll()))
                 {
-                    foreach (BookClass book in new ObservableCollection<BookClass>(bookManager.GetAll()))
+                    if (value == book.DateBook)
                     {
-                        if (Data == book.DateBook)
+                        Books.Add(book);
+                        Headline = book.Headline;
+                        Content = book.ContentBook;
+                        CategoryClassesList = new ObservableCollection<CategoryClass>(book.LabelCategory);
+                        return;
+                    }
+                    else
+                    {
+                        Headline = null;
+                        Content = null;
+                        if (CategoryClassesList != null)
                         {
-                            Headline = book.Headline;
-                            Content = book.ContentBook;
-                            CategoryClassesList = new ObservableCollection<CategoryClass>(book.LabelCategory);
-
-                            HeadlineLastDay = book.Headline;
-                            ContentLastDay = book.ContentBook;
-                            CategoryClassesListLastDay = book.LabelCategory;
-                            return;
-                        }
-                        else
-                        {
-                            Headline = null;
-                            Content = null;
-                            CategoryClassesList.Clear();
+                            CategoryClassesList = new ObservableCollection<CategoryClass>();
                         }
                     }
                 }
-                else
-                {
-                    CategoryClassesList = new ObservableCollection<CategoryClass>();
-                }
-                
+                #endregion
+            }
+        }
+        private BookClass bookSelect;
+        public BookClass BookSelect
+        {
+            get
+            {
+                return bookSelect;
+            }
+            set
+            {
+                Set(ref bookSelect, value);
+                Books.Clear();
+                Books.Add(value);
             }
         }
 
-        private string headlineLastDay;
-        public string HeadlineLastDay
-        {
-            get
-            {
-                return headlineLastDay;
-            }
-            set
-            {
-                Set(ref headlineLastDay, value);
-            }
-        }
-        private string contentLastDay;
-        public string ContentLastDay
-        {
-            get
-            {
-                return contentLastDay;
-            }
-            set
-            {
-                Set(ref contentLastDay, value);
-            }
-        }
         #endregion
         #region Collections Book
         private ObservableCollection<CategoryClass> categoryClassesList;
@@ -207,18 +207,6 @@ namespace MainHelper.UserControlProject.UserControlBook
                 Set(ref categoryClassesList, value);
             }
         }
-        private ObservableCollection<CategoryClass> categoryClassesListLastDay;
-        public ObservableCollection<CategoryClass> CategoryClassesListLastDay
-        {
-            get
-            {
-                return categoryClassesListLastDay;
-            }
-            set
-            {
-                Set(ref categoryClassesListLastDay, value);
-            }
-        }
         private ObservableCollection<BookClass> books;
         public ObservableCollection<BookClass> Books
         {
@@ -231,6 +219,18 @@ namespace MainHelper.UserControlProject.UserControlBook
                 Set(ref books, value);
             }
         }
+        private ObservableCollection<BookClass> booksSearch;
+        public ObservableCollection<BookClass> BooksSearch
+        {
+            get
+            {
+                return booksSearch;
+            }
+            set
+            {
+                Set(ref booksSearch, value);
+            }
+        }
         #endregion
         #region Command Book
         public ICommand AddCategoryInListCommand { get; }
@@ -241,6 +241,7 @@ namespace MainHelper.UserControlProject.UserControlBook
         private void OnAddCategoryInListCommandExecute()
         {
             if (SelectCategory is null) return;
+            if (CategoryClassesList is null) CategoryClassesList = new ObservableCollection<CategoryClass>();
             CategoryClassesList.Add(SelectCategory);
         }
         public ICommand AddNewContentCommand { get; }
@@ -250,14 +251,110 @@ namespace MainHelper.UserControlProject.UserControlBook
         }
         private void OnNewContentCommandExecute()
         {
-            if (Content is null) return;
-            bookManager.Add(bookManager.Create(Headline, Content,Data, CategoryClassesList));
-            bookManager.Save();
-            Books.Add(bookManager.Create(Headline, Content, Data, CategoryClassesList));
+            BookClass bookClass = Books.FirstOrDefault(h => h.DateBook == Data);
+            if (bookClass != null)
+            {
+                bookManager.Delete(bookClass);
+                Books.Remove(bookClass);
+                bookManager.Add(bookManager.Create(Headline, Content, Data, CategoryClassesList));
+                bookManager.Save();
+                Books.Clear();
+                Books.Add(bookManager.Create(Headline, Content, Data, CategoryClassesList));
+               
+            }
+            else
+            {
+                if (Content is null || Headline is null) return;
+                bookManager.Add(bookManager.Create(Headline, Content, Data, CategoryClassesList));
+                bookManager.Save();
+                Books.Clear();
+                Books.Add(bookManager.Create(Headline, Content, Data, CategoryClassesList));
+            }
+           
 
-            HeadlineLastDay = Headline;
-            ContentLastDay = Content;
-            CategoryClassesListLastDay = Books[Books.Count - 1].LabelCategory;
+        }
+        public ICommand DataNowCommand { get; }
+        private bool CanDataNowCommandExecute()
+        {
+            return true;
+        }
+        private void OnDataNowCommandExecute()
+        {
+            Data = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+        }
+        public ICommand DataSortAllCommand { get; }
+        private bool CanDataSortAllCommandExecute()
+        {
+            return true;
+        }
+        private void OnDataSortAllCommandExecute()
+        {
+            Data = new DateTime();
+            Books.Clear();
+            Books = new ObservableCollection<BookClass>(bookManager.GetAll());
+            Books = new ObservableCollection<BookClass>(Books.OrderBy(x => x.DateBook));
+        }
+        public ICommand DataLeftCommand { get; }
+        private bool CanDataLeftCommandExecute()
+        {
+            return true;
+        }
+        private void OnDataLeftCommandExecute()
+        {
+            if (Data == new DateTime()) return;
+            Data = Data.AddDays(-1);
+        }
+        public ICommand DataRigthCommand { get; }
+        private bool CanDataRigthCommandExecute()
+        {
+            return true;
+        }
+        private void OnDataRigthCommandExecute()
+        {
+            Data = Data.AddDays(1);
+        }
+        public ICommand RemoveEntryCommand { get; }
+        private bool CanRemoveEntryCommandExecute()
+        {
+            return true;
+        }
+        private void OnRemoveEntryCommandExecute()
+        {
+          
+          BookClass bookClass =  Books.FirstOrDefault(h => h.DateBook == Data);
+          if (bookClass is null) return;
+            bookManager.Delete(bookClass);
+            bookManager.Save();
+            Headline = null;
+            Content = null;
+            CategoryClassesList.Clear();
+            Data = new DateTime();
+            Books.Clear();
+            Books = new ObservableCollection<BookClass>(bookManager.GetAll());
+            Books = new ObservableCollection<BookClass>(Books.OrderBy(x => x.DateBook));
+        }
+        public ICommand SearchEntryCommand { get; }
+        private bool CanSearchEntryCommandExecute()
+        {
+            return true;
+        }
+        private void OnSearchEntryCommandExecute()
+        {
+
+            BooksSearch = new ObservableCollection<BookClass>();
+            if (SelectCategorySearch is null) return;
+            foreach (BookClass book in new ObservableCollection<BookClass>(bookManager.GetAll()))
+            {
+                foreach (CategoryClass category in book.LabelCategory)
+                {
+                    if (category.Name == SelectCategorySearch.Name)
+                    {
+                        BooksSearch.Add(book);
+                        break;
+                    }
+                }
+            }
         }
         #endregion
         public BookUserControlViewModel(ICategoryBookManagerInterface categoryManager, IBookManagerInterface bookManager)
@@ -272,26 +369,18 @@ namespace MainHelper.UserControlProject.UserControlBook
             #region Book
             this.bookManager= bookManager;
             Books = new ObservableCollection<BookClass>(bookManager.GetAll());
+            Books = new ObservableCollection<BookClass>(Books.OrderBy(x => x.DateBook));
             AddCategoryInListCommand = new  RelayCommand(OnAddCategoryInListCommandExecute, CanAddCategoryInListCommandExecute);
             AddNewContentCommand = new RelayCommand(OnNewContentCommandExecute, CanNewContentCommandExecute);
+            DataNowCommand = new RelayCommand(OnDataNowCommandExecute, CanDataNowCommandExecute);
+            DataSortAllCommand = new RelayCommand(OnDataSortAllCommandExecute, CanDataSortAllCommandExecute);
+            DataRigthCommand = new RelayCommand(OnDataRigthCommandExecute, CanDataRigthCommandExecute);
+            DataLeftCommand = new RelayCommand(OnDataLeftCommandExecute, CanDataLeftCommandExecute);
+            RemoveEntryCommand = new RelayCommand(OnRemoveEntryCommandExecute, CanRemoveEntryCommandExecute);
+            SearchEntryCommand = new RelayCommand(OnSearchEntryCommandExecute, CanSearchEntryCommandExecute);
             #endregion
-            #region Last day
-            if (Books.Count != 0)
-            {
-                HeadlineLastDay = Books[Books.Count - 1].Headline;
-                ContentLastDay = Books[Books.Count - 1].ContentBook;
-                Data = Books[Books.Count - 1].DateBook;
-                CategoryClassesListLastDay = new ObservableCollection<CategoryClass>(Books[Books.Count - 1].LabelCategory);
-            }
-            else
-            {
-                HeadlineLastDay = null;
-                ContentLastDay = null;
-                Data = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
-                CategoryClassesListLastDay = new ObservableCollection<CategoryClass>();
-            }
            
-            #endregion
+
         }
     }
 }

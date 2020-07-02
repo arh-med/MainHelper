@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MainHelper.UserControlProject.UserControlBook"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              DataContext="{Binding bookUserControlViewModel, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="974">
@@ -78,12 +78,12 @@
         <Storyboard x:Key="OpenListSeachLabelPanel">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="MenuFlowDocumentReader">
                 <EasingDoubleKeyFrame KeyTime="0" Value="970"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="870"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="820"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseListSeachLabelPanel">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="MenuFlowDocumentReader">
-                <EasingDoubleKeyFrame KeyTime="0" Value="870"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="820"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="970"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -126,24 +126,30 @@
                 <!--Заголовок выдвижной панели-->
                 <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Top">
                     <!--Дата-->
-                    <DatePicker SelectedDate="{Binding Data}" Width="100" materialDesign:HintAssist.Hint="Pick Date" Margin="10 0" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Foreground="White" VerticalAlignment="Top"/>
+                    <DatePicker ToolTip="Date" SelectedDate="{Binding Data}" Width="100" materialDesign:HintAssist.Hint="Pick Date" Margin="10 0" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Foreground="White" VerticalAlignment="Top"/>
                     <UniformGrid Rows="1" Margin="0 10" VerticalAlignment="Top" >
-                        <Button   HorizontalContentAlignment="Left" ToolTip="Back"  Style="{StaticResource MaterialDesignFlatButton}"  >
+                        <Button  Command="{Binding DataNowCommand}" ToolTip="DateNow" HorizontalContentAlignment="Left"   Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <materialDesign:PackIcon Kind="CalendarArrowRight" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
+                        </Button>
+                        <Button  Command="{Binding DataLeftCommand}" HorizontalContentAlignment="Left"  ToolTip="Back"  Style="{StaticResource MaterialDesignFlatButton}"  >
                             <materialDesign:PackIcon Kind="ArrowLeftBoldBox" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
                         </Button>
-                        <Button  ToolTip="Next"   HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}"  >
+                        <Button Command="{Binding DataRigthCommand}" ToolTip="Next"   HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}"  >
                             <materialDesign:PackIcon Kind="ArrowRightBoldBox" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
+                        </Button>
+                        <Button Command="{Binding DataSortAllCommand}"  ToolTip="AllEntry"   HorizontalContentAlignment="Left"  Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <materialDesign:PackIcon Kind="CalendarText" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
                         </Button>
                     </UniformGrid>
                     <!--Управление выдвижением-->
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="590 0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="450 0">
                         <Grid>
-                            <Button x:Name="OpenNewEntryPanelButton"  HorizontalContentAlignment="Left" ToolTip="Back"  Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <Button x:Name="OpenNewEntryPanelButton"  HorizontalContentAlignment="Left" ToolTip="Show"  Style="{StaticResource MaterialDesignFlatButton}"  >
                                 <Border BorderBrush="#898989" BorderThickness="1">
                                     <materialDesign:PackIcon Kind="ChevronDoubleDown" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
                                 </Border>
                             </Button>
-                            <Button x:Name="CloseNewEntryPanelButton"  HorizontalContentAlignment="Left" ToolTip="Back"  Style="{StaticResource MaterialDesignFlatButton}" Visibility="Hidden" >
+                            <Button x:Name="CloseNewEntryPanelButton"  HorizontalContentAlignment="Left" ToolTip="Hide"  Style="{StaticResource MaterialDesignFlatButton}" Visibility="Hidden" >
                                 <Border BorderBrush="#898989" BorderThickness="1">
                                     <materialDesign:PackIcon Kind="ChevronDoubleUp" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
                                 </Border>
@@ -158,13 +164,13 @@
                         <!--Заголовк для новой записи-->
                         <StackPanel Orientation="Horizontal">
                             <TextBox  materialDesign:HintAssist.Hint="Headline" Text="{Binding Headline}" Width="250" HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="10 0"/>
-                            <ComboBox SelectedItem="{Binding SelectCategory}" ItemsSource="{Binding Categories}"  Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="100" Height="40" FontSize="14">
+                            <ComboBox  SelectedItem="{Binding SelectCategory}" ItemsSource="{Binding Categories}"  Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="125" Height="40" FontSize="14" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon Margin="5,10" Foreground="{Binding ColorCategory}" Kind="CheckboxBlankCircle"  VerticalAlignment="Center"/>
-                                                <TextBlock Margin="5" VerticalAlignment="Center" Foreground="White" Text="{Binding Name}" FontFamily="Yu Gothic" FontSize="14"/>
+                                                <TextBlock Margin="5" VerticalAlignment="Center" Foreground="White" Text="{Binding Name}"  FontSize="14" />
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -187,15 +193,15 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <Button ToolTip="AddNewLabel" Margin="10 0" Command="{Binding AddCategoryCommand}"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
+                                <Button ToolTip="AddLabel" Margin="10 0" Command="{Binding AddCategoryCommand}"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
                                     <materialDesign:PackIcon Kind="TooltipAdd" Foreground="#898989" Width="20" Height="20"  />
                                 </Button>
-                                <Button x:Name="CloseNewLabelStackPanelButton"   ToolTip="AddLabel"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
+                                <Button x:Name="CloseNewLabelStackPanelButton"   ToolTip="Hide"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
                                     <materialDesign:PackIcon Kind="ChevronDoubleLeft" Foreground="#898989" Width="20" Height="20"  />
                                 </Button>
                             </StackPanel>
                            
-                            <Button x:Name="OpenNewLabelStackPanelButton"  ToolTip="AddLabel" Margin="10 0"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
+                            <Button x:Name="OpenNewLabelStackPanelButton"  ToolTip="Show" Margin="10 0"  Height="25" Width="25" Style="{StaticResource MaterialDesignIconButton}" VerticalAlignment="Bottom">
                                 <materialDesign:PackIcon Kind="ChevronDoubleRight" Foreground="#898989" Width="20" Height="20"  />
                             </Button>
                         </StackPanel>
@@ -220,12 +226,20 @@
                         <TextBox Text="{Binding Content}" Margin="10 10 0 0" materialDesign:HintAssist.Hint="Content" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="White" Height="300"  AcceptsReturn="True"  VerticalScrollBarVisibility="Auto"  >
                        
                         </TextBox>
-                        <Button Command="{Binding AddNewContentCommand}"  Width="200"  ToolTip="Add New Content" Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Add new content" Foreground="White"/>
-                                <materialDesign:PackIcon Margin="10 0" Kind="AddBox" Foreground="White" Width="20" Height="20"  />
-                            </StackPanel>
-                        </Button>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Command="{Binding AddNewContentCommand}"  Width="200"  ToolTip="Add New Content" Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Add new content" Foreground="White"/>
+                                    <materialDesign:PackIcon Margin="10 0" Kind="AddBox" Foreground="White" Width="20" Height="20"  />
+                                </StackPanel>
+                            </Button>
+                            <Button Command="{Binding RemoveEntryCommand}"   Width="200"  ToolTip="Remove entry" Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Remove entry" Foreground="White"/>
+                                    <materialDesign:PackIcon Margin="10 0" Kind="FileDocumentBoxRemove" Foreground="White" Width="20" Height="20"  />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -233,8 +247,8 @@
             <StackPanel>
                 <!--Заголовок панели просмотра-->
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding HeadlineLastDay}"  HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="20 0"/>
-                    <ItemsControl ItemsSource="{Binding CategoryClassesListLastDay}" Foreground="White" VerticalAlignment="Bottom" Margin="20 0">
+                    <TextBlock Text="Day Book"  HorizontalAlignment="Left" Foreground="White" FontSize="20" Margin="20 0"/>
+                    <ItemsControl  Foreground="White" VerticalAlignment="Bottom" Margin="20 0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -254,18 +268,19 @@
                 <Separator Margin="20 0 20 0"/>
                 <!--Поиск по метки -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 20 0">
-                    <ComboBox    Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="100"  FontSize="14" VerticalAlignment="Top"  >
+                    <ComboBox  Height="45" materialDesign:TextFieldAssist.HasClearButton="True"    SelectedItem="{Binding SelectCategorySearch}" ItemsSource="{Binding Categories}"  Foreground="White"   materialDesign:HintAssist.Hint="#Label" Width="125"  FontSize="14" VerticalAlignment="Top"  >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-
+                                    <StackPanel Orientation="Horizontal" Height="35">
+                                        <materialDesign:PackIcon Margin="5,10" Foreground="{Binding ColorCategory}" Kind="CheckboxBlankCircle"  VerticalAlignment="Center"/>
+                                        <TextBlock Margin="5" VerticalAlignment="Center" Foreground="White" Text="{Binding Name}" FontSize="12"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Button x:Name="OpenPanelListLabelButton"  ToolTip="Search"   Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom">
+                    <Button Command="{Binding SearchEntryCommand}" x:Name="OpenPanelListLabelButton"  ToolTip="Search"   Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom">
                         <Border BorderBrush="#898989" BorderThickness="1">
                             <materialDesign:PackIcon Kind="Search" Foreground="#898989" Width="20" Height="20" />
                         </Border>
@@ -274,54 +289,83 @@
                 <StackPanel Orientation="Horizontal">
                     <!--Текс в панели просмотра-->
                     <StackPanel>
-                        <FlowDocumentReader x:Name="MenuFlowDocumentReader" Foreground="White" Height="340" Width="970">
-                            <FlowDocument  ColumnGap="10" IsColumnWidthFlexible="True" >
-                                <List MarkerStyle="None" >
-                                    <ListItem>
-                                        <Paragraph TextAlignment="Left" FontSize="15" >
-                                            <Run Text="{Binding ContentLastDay}"/>
-                                        </Paragraph>
-                                    </ListItem>
-                                </List>
+                        <FlowDocumentScrollViewer    x:Name="MenuFlowDocumentReader" Foreground="White" Height="340" Width="970">
+                            <FlowDocument>
+                                <BlockUIContainer>
+                                    <ItemsControl ItemsSource="{Binding  Books}" Foreground="White">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Headline}" Width="150"  Foreground="Gray" FontSize="20" Margin="20 0"/>
+                                                        <TextBlock Text="{Binding DateBook.Day}"  Foreground="Gray" FontSize="15"  VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="/"  Foreground="Gray" FontSize="15"  VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="{Binding DateBook.Month}"  Foreground="Gray" FontSize="15"  VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="/"  Foreground="Gray" FontSize="15"  VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="{Binding DateBook.Year}"  Foreground="Gray" FontSize="15"  VerticalAlignment="Bottom"/>
+                                                    </StackPanel>
+                                                    <ItemsControl ItemsSource="{Binding LabelCategory}"  Foreground="White" VerticalAlignment="Bottom" Margin="20 0">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Horizontal"/>
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock FontSize="12" Text="#" Foreground="{Binding ColorCategory}"/>
+                                                                    <TextBlock FontSize="12" Text="{Binding Name}" Margin="0 0 10 0" Foreground="{Binding ColorCategory}"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+
+                                                    <FlowDocumentScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                                                        <FlowDocument>
+                                                            <List MarkerStyle="None" >
+                                                                <ListItem >
+                                                                    <Paragraph  TextAlignment="Left" FontSize="15" >
+                                                                        
+                                                                        <Run FontStyle="Italic" Text="{Binding  ContentBook}"/>
+                                                                    </Paragraph>
+                                                                </ListItem>
+                                                            </List>
+                                                        </FlowDocument>
+                                                    </FlowDocumentScrollViewer>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </BlockUIContainer>
                             </FlowDocument>
-                        </FlowDocumentReader>
+                        </FlowDocumentScrollViewer>
                     </StackPanel>
                     <!--Список поиска по метки-->
-                    <StackPanel Width="100">
-                        <ListView>
-                            <ListViewItem>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="Headline"  />
-                                    <Separator/>
-                                    <TextBlock Text="27.06.2020" FontSize="12"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="Headline"  />
-                                    <Separator/>
-                                    <TextBlock Text="27.06.2020" FontSize="12"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="Headline"  />
-                                    <Separator/>
-                                    <TextBlock Text="27.06.2020" FontSize="12"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="Headline"  />
-                                    <Separator/>
-                                    <TextBlock Text="27.06.2020" FontSize="12"/>
-                                </StackPanel>
-                            </ListViewItem>
-                        </ListView>
-                        <Button x:Name="ClosePanelListLabelButton"  ToolTip="Hide"  Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left"  >
+                    <Grid Width="150" Height="320"  VerticalAlignment="Top">
+                        <ScrollViewer VerticalAlignment="Top" Height="280" HorizontalScrollBarVisibility="Hidden" >
+                            <ListView ItemsSource="{Binding BooksSearch}" SelectedItem="{Binding BookSelect}" >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Headline}"  />
+                                            <Separator/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding DateBook.Day}" FontSize="12"/>
+                                                <TextBlock Text="/" FontSize="12"/>
+                                                <TextBlock Text="{Binding DateBook.Month}" FontSize="12"/>
+                                                <TextBlock Text="/" FontSize="12"/>
+                                                <TextBlock Text="{Binding DateBook.Year}" FontSize="12"/>
+                                            </StackPanel>
+                                           
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </ScrollViewer>
+                        <Button VerticalAlignment="Bottom" x:Name="ClosePanelListLabelButton"  ToolTip="Hide"  Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left"  >
                             <materialDesign:PackIcon Kind="ChevronDoubleRight" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
                         </Button>
-                    </StackPanel>
+                    </Grid>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

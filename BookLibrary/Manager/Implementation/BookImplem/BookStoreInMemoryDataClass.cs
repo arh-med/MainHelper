@@ -26,7 +26,7 @@ namespace BookLibrary.Manager.Implementation.BookImplem
 
         public void Delete(BookClass entity)
         {
-            int index = bookMemoryClass.collectionClasses.IndexOf(entity);
+           int index = bookMemoryClass.collectionClasses.IndexOf(entity);
            bookMemoryClass.collectionClasses.RemoveAt(index);
         }
 
