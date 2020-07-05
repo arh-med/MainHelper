@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:task="clr-namespace:MainHelper.UserControlProject.UserControlTask"
-        xmlns:book="clr-namespace:MainHelper.UserControlProject.UserControlBook"
+        xmlns:mail="clr-namespace:MainHelper.UserControlProject.UserControlMail"
         xmlns:local="clr-namespace:MainHelper.WindowsProject"
         mc:Ignorable="d"
         Height="500" Width="1024"   WindowState="Normal" WindowStartupLocation="CenterOwner"
@@ -76,13 +76,13 @@
                 <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="0 0 0 45">
                         <ListView >
-                            <ListViewItem   Height="60">
+                            <ListViewItem   Height="60" MouseLeftButtonUp="ListViewItemBookUserControl">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="FormatListText" Height="25" Width="25" VerticalAlignment="Center"/>
                                     <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Day Book" FontFamily="Cambria Math" FontSize="16"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem  Height="60">
+                            <ListViewItem  Height="60" MouseLeftButtonUp="ListViewItemTaskUserControl">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="CalendarTask" Height="25" Width="25" VerticalAlignment="Center"/>
                                     <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Task" FontFamily="Cambria Math" FontSize="16"/>
@@ -112,8 +112,8 @@
             </Grid>  
         </Grid>
         <Grid Grid.Column="1" Background="#141A21" Opacity="1">
-            <Grid>
-                <book:BookUserControl/>
+            <Grid x:Name="GridAddUserControl">
+                <mail:MailUserControl/>
             </Grid>
             <StackPanel x:Name="stackPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Margin="0 0 10 0">
                 <StackPanel.Resources>

@@ -6,8 +6,11 @@ using BookLibrary.Manager.Interfaces.CategoryInterface;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using MailLibrary.Manager.Interfaces.Implementation;
+using MailLibrary.Manager.Interfaces.MailInterface;
 using MainHelper.Services.ManagerData.TaskManagerData;
 using MainHelper.UserControlProject.UserControlBook;
+using MainHelper.UserControlProject.UserControlMail;
 using MainHelper.UserControlProject.UserControlTask;
 using TaskLibrary.Manager.Interfaces;
 
@@ -36,6 +39,10 @@ namespace MainHelper.ViewModel
             SimpleIoc.Default.Register<IBookManagerInterface, BookManagerDataClass>();
             SimpleIoc.Default.Register<IBookStoreInMemoryInterface, BookStoreInMemoryDataClass>();
             #endregion
+            #region MailLibrary
+            SimpleIoc.Default.Register<MailUserControlViewModelClass>();
+            SimpleIoc.Default.Register<IMailManagerInterface, MailManagerDataClass>();
+            #endregion
         }
 
         public TaskUserControlViewModelClass  taskUserControlViewModelClass
@@ -50,6 +57,13 @@ namespace MainHelper.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<BookUserControlViewModel>();
+            }
+        }
+        public MailUserControlViewModelClass mailUserControlViewModelClass
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MailUserControlViewModelClass>();
             }
         }
 

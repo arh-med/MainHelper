@@ -89,6 +89,10 @@
       <DependentUpon>BookUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControlProject\UserControlBook\BookUserControlViewModel.cs" />
+    <Compile Include="UserControlProject\UserControlMail\MailUserControl.xaml.cs">
+      <DependentUpon>MailUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlProject\UserControlMail\MailUserControlViewModelClass.cs" />
     <Compile Include="UserControlProject\UserControlTask\TaskUserControl.xaml.cs">
       <DependentUpon>TaskUserControl.xaml</DependentUpon>
     </Compile>
@@ -114,6 +118,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControlProject\UserControlBook\BookUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlProject\UserControlMail\MailUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,6 +172,10 @@
     <ProjectReference Include="..\BookLibrary\BookLibrary.csproj">
       <Project>{f85239bc-f1be-4768-bff2-6a5959ec1c90}</Project>
       <Name>BookLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MailLibrary\MailLibrary.csproj">
+      <Project>{3a6afc12-1d16-4523-88b3-bd383e848c90}</Project>
+      <Name>MailLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\TaskLibrary\TaskLibrary.csproj">
       <Project>{d9b4ebda-0ec9-4601-af19-ec947273b09c}</Project>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MainHelper.UserControlProject.UserControlBook;
+using MainHelper.UserControlProject.UserControlTask;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +21,25 @@ namespace MainHelper.WindowsProject
     /// </summary>
     public partial class HomePanel : Window
     {
+        BookUserControl bookUserControl;
+        TaskUserControl taskUserControl;
         public HomePanel()
         {
             InitializeComponent();
+            bookUserControl = new BookUserControl();
+            taskUserControl = new TaskUserControl();
         }
 
-        
+        private void ListViewItemBookUserControl(object sender, MouseButtonEventArgs e)
+        {
+            GridAddUserControl.Children.Clear();
+            GridAddUserControl.Children.Add(bookUserControl);
+        }
+
+        private void ListViewItemTaskUserControl(object sender, MouseButtonEventArgs e)
+        {
+            GridAddUserControl.Children.Clear();
+            GridAddUserControl.Children.Add(taskUserControl);
+        }
     }
 }
