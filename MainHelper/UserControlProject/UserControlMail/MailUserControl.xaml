@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:MainHelper.UserControlProject.UserControlMail"
-              DataContext="{Binding mailUserControlViewModelClass, Source={StaticResource Locator}}"
+             DataContext="{Binding mailUserControlViewModelClass, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="974">
     <UserControl.Resources>
@@ -52,7 +52,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Left" Text="Mail"  Foreground="#607D8B" Margin="5 7" FontSize="20"  FontWeight="Bold" FontFamily="Yu Gothic" />
+        <TextBlock Name="HeadlineTextBox" HorizontalAlignment="Left" Text="Mail"  Foreground="#607D8B" Margin="5 7" FontSize="20"  FontWeight="Bold" FontFamily="Yu Gothic" />
         <StackPanel Grid.Row="1">
             <StackPanel Height="50" Name="loginStackPanel">
                 <Grid Height="50">
@@ -94,65 +94,75 @@
             </StackPanel>
             <Grid Height="400">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <ProgressBar  IsIndeterminate="{Binding Connection}" VerticalAlignment="Top" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Margin="10 5 5 5"  Width="200"    Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
-                        <StackPanel Orientation="Horizontal" >
-                            <materialDesign:PackIcon Kind="EmailEdit" Margin="5 0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Create a message" FontSize="14" Margin="5 0"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Margin="5"   Width="200"   Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
-                        <StackPanel Orientation="Horizontal"  >
-                            <materialDesign:PackIcon Kind="EmailNewsletter" Margin="5 0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Inbox" FontSize="14"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Margin="5" Width="200" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
-                        <StackPanel Orientation="Horizontal"  >
-                            <materialDesign:PackIcon Kind="EmailMinus" Margin="5 0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Deleted messages" FontSize="14"  />
-                        </StackPanel>
-                    </Button>
-                    <Button Margin="5" Width="200" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
-                        <StackPanel Orientation="Horizontal"  >
-                            <materialDesign:PackIcon Kind="EmailSend" Margin="5 0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Sent messages" FontSize="14"  />
-                        </StackPanel>
-                    </Button>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="10 5 5 5"  Width="200"    Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="EmailEdit" Margin="5 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Create a message" FontSize="14" Margin="5 0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="5"   Width="200"   Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <StackPanel Orientation="Horizontal"  >
+                                <materialDesign:PackIcon Kind="EmailNewsletter" Margin="5 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Inbox" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="5" Width="200" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <StackPanel Orientation="Horizontal"  >
+                                <materialDesign:PackIcon Kind="EmailMinus" Margin="5 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Deleted messages" FontSize="14"  />
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="5" Width="200" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <StackPanel Orientation="Horizontal"  >
+                                <materialDesign:PackIcon Kind="EmailSend" Margin="5 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Sent messages" FontSize="14"  />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <Separator/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="From" Foreground="White" FontSize="15" Margin="10 0"/>
+                        <TextBlock Text="Headline" Foreground="White" FontSize="15" Margin="250 0"/>
+                        <TextBlock Text="Date" Foreground="White" FontSize="15" Margin="180 0"/>
+                    </StackPanel>
+
                 </StackPanel>
-                <ScrollViewer Grid.Row="1" VerticalAlignment="Top" Height="300">
+                <ScrollViewer Grid.Row="1" VerticalAlignment="Top" Height="300" Margin="0 10 0 0" >
                     <ListView ItemsSource="{Binding Mails}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding From}" Foreground="White"/>
-                                    <TextBlock Text="{Binding Headline}" Foreground="White"/>
-                                    <TextBlock Text="{Binding  DateMassege}" Foreground="White"/>
+                                    <ToggleButton VerticalAlignment="Center" Margin="5 0 15 0" Content="{Binding CharFrom}" Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="{Binding From}" materialDesign:ShadowAssist.ShadowDepth="Depth3" />
+                                    <!--<TextBlock x:Name="FromText" Text="{Binding From}" Foreground="White"/>-->
+                                    <TextBlock Width="700" VerticalAlignment="Center" Text="{Binding Headline}" Foreground="White"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Day}" Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text="/" Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Month}" Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text="/" Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Year}" Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text="  " Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Hour}" Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text=":" Foreground="White"/>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Minute}" Foreground="White"/>
+                                    </StackPanel>
+                                   
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
                 <StackPanel  Grid.Row="1" VerticalAlignment="Bottom" Margin="4" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <ItemsControl ItemsSource="{Binding CountPage}" >
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Style="{StaticResource MaterialDesignOutlinedButton}" >
-                                     <TextBlock Text="{Binding}" Foreground="White" FontSize="12"/>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <Button Style="{StaticResource MaterialDesignOutlinedButton}">
+                    <Button Command="{Binding BackPageCommand}" Style="{StaticResource MaterialDesignOutlinedButton}" Height="25" Width="50">
+                        <materialDesign:PackIcon Kind="ChevronDoubleLeft" Foreground="White" />
+                    </Button>
+                    <Button Command="{Binding NextPageCommand}" Style="{StaticResource MaterialDesignOutlinedButton}" Height="25" Width="50">
                         <materialDesign:PackIcon Kind="ChevronDoubleRight" Foreground="White" />
                     </Button>
                 </StackPanel>

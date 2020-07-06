@@ -9,11 +9,13 @@ namespace MailLibrary.Manager.Interfaces.Base
 {
     public interface IManagerBaseInterface<T>
     {
-        ObservableCollection<T> GetAll();
+        ObservableCollection<T> GetAll(int Count, int returnMessage);
 
         bool Connection(string login, string password, string mail, int port);
 
         int Count();
+
+        void Indox();
 
     }
 }

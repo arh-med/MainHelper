@@ -11,10 +11,11 @@ namespace MailLibrary.Entityes
     {
         public string Headline { get; set; }
         public string From { get; set; }
+        public char CharFrom { get; set; }
         public string Body { get; set; }
         public DateTime DateMassege { get; set; }
         public bool CheckMail { get; set; }
-        public MailClass(string Headline, string From, string Body, DateTime DateMassege,bool CheckMail)
+        public MailClass(string Headline, string From, char CharFrom, string Body, DateTime DateMassege,bool CheckMail)
         {
             Id = Guid.NewGuid();
             this.Headline = Headline;
@@ -22,6 +23,7 @@ namespace MailLibrary.Entityes
             this.Body = Body;
             this.DateMassege = DateMassege;
             this.CheckMail = CheckMail;
+            this.CharFrom = CharFrom;
         }
     }
 }

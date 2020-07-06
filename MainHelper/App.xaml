@@ -15,7 +15,7 @@
                 <ResourceDictionary>
                      <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MainHelper.ViewModel" />
                 </ResourceDictionary>
-      </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>
 </Application>

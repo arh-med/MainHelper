@@ -63,6 +63,18 @@ namespace MainHelper.UserControlProject.UserControlMail
                 Set(ref selectComboBoxMail, value);
             }
         }
+        private int countMessage;
+        public int CountMessage
+        {
+            get
+            {
+                return countMessage;
+            }
+            set
+            {
+                Set(ref countMessage, value);
+            }
+        }
 
         private ObservableCollection<MailClass> mails;
         public ObservableCollection<MailClass> Mails
@@ -80,21 +92,6 @@ namespace MainHelper.UserControlProject.UserControlMail
 
         public List<string> ComboBoxMailAddress { get; }
 
-        #region CollectionPage
-        private ObservableCollection<int> countPage;
-        public ObservableCollection<int> CountPage
-        {
-            get
-            {
-                return countPage;
-
-            }
-            set
-            {
-                Set(ref countPage, value);
-            }
-        }
-        #endregion
         public ICommand ConnectCommand { get; }
         private bool CanConnectCommandExecute()
         {
@@ -104,37 +101,49 @@ namespace MainHelper.UserControlProject.UserControlMail
         {
             Connection = true;
             bool mailConnection = mailManager.Connection(Login, Password, SelectComboBoxMail, 993);
-            for (int i = 1; i <= mailManager.Count(); i++)
-            {
-                try
-                {
-                    if (i == 11)
-                    {
-                        return;
-                    }
-                    CountPage.Add(i);
-                }
-                catch (Exception)
-                {
-
-                    return;
-                }
-               
-            }
-           
             if (mailConnection == true)
             {
+                mailManager.Indox();
+                CountMessage = mailManager.Count();
+                Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
                 Connection = false;
-                Mails = new ObservableCollection<MailClass>(mailManager.GetAll());
             }
            
+        }
+
+        public ICommand NextPageCommand { get; }
+        private bool CanNextPageCommandExecute()
+        {
+            return true;
+        }
+        private void OnNextPageCommandExecute()
+        {
+            if (CountMessage > mailManager.Count() || CountMessage <= 0) return;
+            CountMessage = CountMessage - 10;
+            Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
+
+        }
+
+        public ICommand BackPageCommand { get; }
+        private bool CanBackPageCommandExecute()
+        {
+            return true;
+        }
+        private void OnBackPageCommandExecute()
+        {
+            if (CountMessage >= mailManager.Count() || CountMessage <= 0) return;
+            CountMessage = CountMessage + 10;
+            Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
+
         }
         public MailUserControlViewModelClass(IMailManagerInterface mailManager)
         {
             this.mailManager = mailManager;
             ConnectCommand = new RelayCommand(OnConnectCommandExecute, CanConnectCommandExecute);
+            NextPageCommand = new RelayCommand(OnNextPageCommandExecute, CanNextPageCommandExecute);
+            BackPageCommand = new RelayCommand(OnBackPageCommandExecute, CanBackPageCommandExecute);
             ComboBoxMailAddress = new List<string> { "imap.mail.ru" };
-            CountPage = new ObservableCollection<int>();
+           
         }
     }
 }

@@ -17,48 +17,9 @@ namespace MailLibrary.Manager.Interfaces.Implementation
 {
     public class MailManagerDataClass : IMailManagerInterface
     {
-        //#region Pop3
-        //Pop3Client client = new Pop3Client();
-        //MessagePart plainTextPart = default(MessagePart);
-        //ObservableCollection<MailClass> mailClasses = new ObservableCollection<MailClass>();
-
-
-        ////Pop3Client client = new Pop3Client();
-        ////client.Connect("pop.mail.ru", 995, true);
-        ////client.Authenticate("rotarenko1983", "103a89A217", OpenPop.Pop3.AuthenticationMethod.UsernameAndPassword);
-
-        //public bool Connection(string login, string password,string mail, int port)
-        //{
-        //    client.Connect(mail, port, true);
-        //    client.Authenticate(login, password, OpenPop.Pop3.AuthenticationMethod.UsernameAndPassword);
-        //    return client.Connected;
-        //}
-        //public ObservableCollection<MailClass> GetAll()
-        //{
-        //    int Cont = client.GetMessageCount();
-        //    for (int i = Cont; i > Cont - 10; i--)
-        //    { 
-        //        Message message = client.GetMessage(i);
-        //        plainTextPart = message.FindFirstPlainTextVersion();
-        //        string Body;
-        //        if (plainTextPart is null)
-        //        {
-        //            Body = " ";
-        //        }
-        //        else
-        //        {
-        //            Body = plainTextPart.GetBodyAsText();
-        //        }
-        //        MailClass mailClass = new MailClass(message.Headers.Subject,message.Headers.From.ToString(), Body, message.Headers.DateSent, message.MessagePart.IsAttachment);
-        //        mailClasses.Add(mailClass);
-        //    }
-        //    return mailClasses;
-        //}
-        //#endregion
-
         ImapClient client;
-        IMailFolder indox;
-        ObservableCollection<MailClass> mailClasses = new ObservableCollection<MailClass>();
+        IMailFolder folderMail;
+        ObservableCollection<MailClass> mailClasses; 
         public bool Connection(string login, string password, string mail, int port)
         {
             client = new ImapClient();
@@ -66,8 +27,7 @@ namespace MailLibrary.Manager.Interfaces.Implementation
                 {
                     client.Connect(mail, port, true);
                     client.Authenticate(login, password);
-                    indox = client.Inbox;
-                    indox.Open(FolderAccess.ReadOnly);
+                   
                 return true;
                 }
                 catch (Exception)
@@ -76,23 +36,29 @@ namespace MailLibrary.Manager.Interfaces.Implementation
                 }
                
         }
-
-        public ObservableCollection<MailClass> GetAll()
+        public void Indox()
         {
-           
-           
-            int Count = indox.Count-1;
-            for (int i = Count; i > Count -10; i--)
+            folderMail = client.Inbox;
+            folderMail.Open(FolderAccess.ReadOnly);
+        }
+
+        public ObservableCollection<MailClass> GetAll(int Count, int returnMessage)
+        {
+            if (Count >= folderMail.Count || Count <= 0) return mailClasses;
+            mailClasses = new ObservableCollection<MailClass>();
+            for (int i = Count; i > Count - returnMessage; i--)
             {
+                if (i > folderMail.Count || i <= 0) return mailClasses;
                 var message = client.Inbox.GetMessage(i);
-                MailClass mailClass = new MailClass(message.Subject, message.From.ToString(), message.TextBody, message.Date.DateTime, true);
+                char CharFrom = message.From.ToString().ToArray()[1];
+                MailClass mailClass = new MailClass(message.Subject, message.From.ToString(), CharFrom, message.TextBody, message.Date.DateTime, true);
                 mailClasses.Add(mailClass);
             }
             return mailClasses;
         }
         public int Count()
         {
-            int Count = indox.Count - 1;
+            int Count = folderMail.Count - 1;
             return Count;
         }
     }
