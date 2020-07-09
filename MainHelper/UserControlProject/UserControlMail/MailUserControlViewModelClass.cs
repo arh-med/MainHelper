@@ -2,12 +2,14 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using MailLibrary.Entityes;
 using MailLibrary.Manager.Interfaces.MailInterface;
+using MainHelper.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MainHelper.UserControlProject.UserControlMail
@@ -15,19 +17,20 @@ namespace MainHelper.UserControlProject.UserControlMail
     public class MailUserControlViewModelClass : ViewModelBase
     {
         IMailManagerInterface mailManager;
-        private bool connection;
-        public bool Connection
+        private bool savePassword;
+        public bool SavePassword
         {
             get
             {
-                return connection;
+                return savePassword;
             }
             set
             {
-                Set(ref connection, value);
+                Set(ref savePassword, value);
             }
         }
-        private string login = "arh_med@mail.ru";
+       
+        private string login ;
         public string Login
         {
             get
@@ -39,7 +42,7 @@ namespace MainHelper.UserControlProject.UserControlMail
                 Set(ref login, value); 
             }
         }
-        private string password = "103A89a217";
+        private string password ;
         public string Password
         {
             get
@@ -76,6 +79,59 @@ namespace MainHelper.UserControlProject.UserControlMail
             }
         }
 
+        private bool selectMessageBool;
+        public bool SelectMessageBool
+        {
+            get
+            {
+                return selectMessageBool;
+            }
+            set
+            {
+                Set(ref selectMessageBool, value);
+            }
+        }
+
+        private string _reportPage;
+        public string ReportPage
+        {
+            get
+            {
+                return _reportPage;
+            }
+
+            set
+            {
+                Set(ref _reportPage, value);
+            }
+        }
+        private MailClass selectMessage;
+        public MailClass SelectMessage
+        {
+            get
+            {
+                return selectMessage;
+            }
+            set
+            {
+                Set(ref selectMessage, value);
+                SelectMessageBool = true;
+                try
+                {ReportPage = selectMessage.Body;
+                 RaisePropertyChanged(ReportPage);}
+                catch (Exception) { }
+                try
+                { mailManager.FlagSeen(selectMessage.Uid);
+                  selectMessage.FlagMail = false;
+                 
+                }
+                catch (Exception) {}
+                
+            }
+        }
+
+
+
         private ObservableCollection<MailClass> mails;
         public ObservableCollection<MailClass> Mails
         {
@@ -93,20 +149,36 @@ namespace MainHelper.UserControlProject.UserControlMail
         public List<string> ComboBoxMailAddress { get; }
 
         public ICommand ConnectCommand { get; }
-        private bool CanConnectCommandExecute()
+        private bool CanConnectCommandExecute(object parameter)
         {
             return true;
         }
-        private void OnConnectCommandExecute()
+        private void OnConnectCommandExecute(object parameter)
         {
-            Connection = true;
+            PasswordBox passwordBox = parameter as PasswordBox;
+            Password = passwordBox.Password;
+            #region SaveLogin
+            if (SavePassword == true)
+            {
+                Settings.Default["Login"] = Login;
+                Settings.Default["Password"] = Password;
+                Settings.Default["Remember"] = true;
+                Settings.Default.Save();
+            }
+            else
+            {
+                Settings.Default["Login"] = "";
+                Settings.Default["Password"] = "";
+                Settings.Default["Remember"] = false;
+                Settings.Default.Save();
+            }
+            #endregion
             bool mailConnection = mailManager.Connection(Login, Password, SelectComboBoxMail, 993);
             if (mailConnection == true)
             {
                 mailManager.Indox();
                 CountMessage = mailManager.Count();
                 Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
-                Connection = false;
             }
            
         }
@@ -118,10 +190,11 @@ namespace MainHelper.UserControlProject.UserControlMail
         }
         private void OnNextPageCommandExecute()
         {
+            
             if (CountMessage > mailManager.Count() || CountMessage <= 0) return;
             CountMessage = CountMessage - 10;
             Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
-
+            SelectMessageBool = false;
         }
 
         public ICommand BackPageCommand { get; }
@@ -131,19 +204,61 @@ namespace MainHelper.UserControlProject.UserControlMail
         }
         private void OnBackPageCommandExecute()
         {
+           
             if (CountMessage >= mailManager.Count() || CountMessage <= 0) return;
             CountMessage = CountMessage + 10;
             Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
+            SelectMessageBool = false;
+        }
+
+        public ICommand BackCommand { get; }
+        private bool CanBackCommandExecute()
+        {
+            return true;
+        }
+        private void OnBackCommandExecute()
+        {
+           
+            Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
+            SelectMessageBool = false;
+        }
+
+        public ICommand DeleteMessageCommand { get; }
+        private bool CanDeleteMessageCommandExecute(object parameter)
+        {
+            return true;
+        }
+        private void OnDeleteMessageCommandExecute(object parameter)
+        {
+            MailClass mailClass = parameter as MailClass;
+            mailManager.Delete(mailClass.Uid);
+
+            bool mailConnection = mailManager.Connection(Login, Password, SelectComboBoxMail, 993);
+            if (mailConnection == true)
+            {
+                mailManager.Indox();
+                CountMessage = mailManager.Count();
+                Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
+            }
+
+            SelectMessageBool = false;
 
         }
         public MailUserControlViewModelClass(IMailManagerInterface mailManager)
         {
+            if ((bool)Settings.Default["Remember"] == true)
+            {
+                Login = (string)Settings.Default["Login"];
+                Password = (string)Settings.Default["Password"];
+                SavePassword = (bool)Settings.Default["Remember"];
+            }
             this.mailManager = mailManager;
-            ConnectCommand = new RelayCommand(OnConnectCommandExecute, CanConnectCommandExecute);
+            ConnectCommand = new RelayCommand<object>(OnConnectCommandExecute, CanDeleteMessageCommandExecute);
+            DeleteMessageCommand = new RelayCommand<object>(OnDeleteMessageCommandExecute, CanConnectCommandExecute);
             NextPageCommand = new RelayCommand(OnNextPageCommandExecute, CanNextPageCommandExecute);
             BackPageCommand = new RelayCommand(OnBackPageCommandExecute, CanBackPageCommandExecute);
             ComboBoxMailAddress = new List<string> { "imap.mail.ru" };
-           
+            BackCommand = new RelayCommand(OnBackCommandExecute, CanBackCommandExecute);
         }
     }
 }

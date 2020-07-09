@@ -4,11 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:MainHelper.UserControlProject.UserControlMail"
+             xmlns:validators="clr-namespace:MainHelper.UserControlProject.UserControlTask.Validators"
              DataContext="{Binding mailUserControlViewModelClass, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="974">
     <UserControl.Resources>
+        <Style x:Key="OpenMessage" >
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding  SelectMessageBool}"  Value="True">
+                    <Setter Property="Control.Height" Value="0"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding  SelectMessageBool}"  Value="False">
+                    <Setter Property="Control.Height" Value="400"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CloseMessage" >
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding  SelectMessageBool}"  Value="False">
+                    <Setter Property="Control.Height" Value="0"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding  SelectMessageBool}"  Value="True">
+                    <Setter Property="Control.Height" Value="400"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="OpenHtml" >
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=WebBrowserTogger, Path=IsChecked}"  Value="False">
+                    <Setter Property="Control.Height" Value="0"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=WebBrowserTogger, Path=IsChecked}"  Value="True">
+                    <Setter Property="Control.Height" Value="280"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Storyboard x:Key="OpenLogin">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="loginStackPanel">
                 <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
@@ -37,7 +67,6 @@
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
-        
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Button.Click" SourceName="buttonOpenLogin">
@@ -52,11 +81,11 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Name="HeadlineTextBox" HorizontalAlignment="Left" Text="Mail"  Foreground="#607D8B" Margin="5 7" FontSize="20"  FontWeight="Bold" FontFamily="Yu Gothic" />
-        <StackPanel Grid.Row="1">
+        <TextBlock  Name="HeadlineTextBox" HorizontalAlignment="Left" Text="Mail"  Foreground="#607D8B" Margin="5 7" FontSize="20"  FontWeight="Bold" FontFamily="Yu Gothic" />
+        <StackPanel Grid.Row="1" >
             <StackPanel Height="50" Name="loginStackPanel">
                 <Grid Height="50">
-                    <TextBlock VerticalAlignment="Center" Text="arh_med@mail.ru" Foreground="Gray" Margin="10 0"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Login}" Foreground="Gray" Margin="10 0"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="0 0 20 0">
                         <Grid >
                             <Button x:Name="buttonOpenLogin"   HorizontalContentAlignment="Left" ToolTip="Show"  Style="{StaticResource MaterialDesignFlatButton}"  >
@@ -75,29 +104,31 @@
                 </Grid>
                 <Grid>
                     <TextBox Foreground="White" materialDesign:HintAssist.Hint="Login" Text="{Binding Login}" Width="150" HorizontalAlignment="Left" Margin="20 5" />
-                    <TextBox Foreground="White" materialDesign:HintAssist.Hint="Password" Text="{Binding Password}" Width="150" HorizontalAlignment="Left" Margin="225 5" />
-                    <ComboBox materialDesign:HintAssist.Hint="Mail" ItemsSource="{Binding  ComboBoxMailAddress}" SelectedItem="{Binding SelectComboBoxMail}"  Width="150"  HorizontalAlignment="Left" Margin="450 5">
+                    <PasswordBox x:Name="txt_Password" Foreground="White" materialDesign:HintAssist.Hint="Password" Width="150" HorizontalAlignment="Left" Margin="225 5" />
+                    <TextBlock x:Name="txt_PasswordTextBloc" Text="{Binding Password}" Visibility="Collapsed" Width="150" HorizontalAlignment="Right" Foreground="White"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Mail" Foreground="White" ItemsSource="{Binding  ComboBoxMailAddress}" SelectedItem="{Binding SelectComboBoxMail}"  Width="150"  HorizontalAlignment="Left" Margin="450 5">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}" Foreground="White"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Button Command="{Binding ConnectCommand}"  Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Right" Margin="0 0 100 0" >
+                    <Button Command="{Binding ConnectCommand}" CommandParameter="{Binding ElementName=txt_Password}" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Right" Margin="0 0 200 0" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Login in" Foreground="Gray"/>
                             <materialDesign:PackIcon Margin="10 0" Kind="Mail" VerticalAlignment="Center" Foreground="#898989" Width="18" Height="18" />
                         </StackPanel>
                     </Button>
-                   
+                    <CheckBox Content="Remember" HorizontalAlignment="Right" Foreground="White" Margin="0 0 110 0" IsChecked="{Binding SavePassword}"/>
                 </Grid>
             </StackPanel>
-            <Grid Height="400">
+            <!--Indox-->
+            <Grid  Style="{StaticResource OpenMessage}" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ProgressBar  IsIndeterminate="{Binding Connection}" VerticalAlignment="Top" />
+                <ProgressBar   VerticalAlignment="Top" />
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Margin="10 5 5 5"  Width="200"    Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
@@ -131,16 +162,29 @@
                         <TextBlock Text="Headline" Foreground="White" FontSize="15" Margin="250 0"/>
                         <TextBlock Text="Date" Foreground="White" FontSize="15" Margin="180 0"/>
                     </StackPanel>
-
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" VerticalAlignment="Top" Height="300" Margin="0 10 0 0" >
-                    <ListView ItemsSource="{Binding Mails}">
+                    <ListView ItemsSource="{Binding Mails}" SelectedItem="{Binding SelectMessage}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <ToggleButton VerticalAlignment="Center" Margin="5 0 15 0" Content="{Binding CharFrom}" Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="{Binding From}" materialDesign:ShadowAssist.ShadowDepth="Depth3" />
+                                    <materialDesign:PackIcon Kind="CircleMedium" VerticalAlignment="Center"  ToolTip="New email" >
+                                        <materialDesign:PackIcon.Style>
+                                            <Style>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding FlagMail }" Value="True">
+                                                        <Setter Property="Control.Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding FlagMail}" Value="False">
+                                                        <Setter Property="Control.Visibility" Value="Hidden"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </materialDesign:PackIcon.Style>
+                                    </materialDesign:PackIcon>
+                                    <ToggleButton VerticalAlignment="Center" Margin="5 0" Content="{Binding  CharFrom}" Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="{Binding From}" materialDesign:ShadowAssist.ShadowDepth="Depth3" />
                                     <!--<TextBlock x:Name="FromText" Text="{Binding From}" Foreground="White"/>-->
-                                    <TextBlock Width="700" VerticalAlignment="Center" Text="{Binding Headline}" Foreground="White"/>
+                                    <TextBlock Width="700" VerticalAlignment="Center" Text="{Binding  Headline}" Foreground="White"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Day}" Foreground="White"/>
                                         <TextBlock VerticalAlignment="Center" Text="/" Foreground="White"/>
@@ -152,7 +196,7 @@
                                         <TextBlock VerticalAlignment="Center" Text=":" Foreground="White"/>
                                         <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Minute}" Foreground="White"/>
                                     </StackPanel>
-                                   
+                                    
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -166,6 +210,79 @@
                         <materialDesign:PackIcon Kind="ChevronDoubleRight" Foreground="White" />
                     </Button>
                 </StackPanel>
+            </Grid>
+            <!--Message-->
+            <Grid Style="{StaticResource CloseMessage}">
+                <Grid Height="400" DataContext="{Binding SelectMessage}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Top"  >
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Headline}" Foreground="White" TextWrapping="Wrap" FontSize="18" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" >
+                            <StackPanel Orientation="Horizontal" Width="880">
+                                <ToggleButton VerticalAlignment="Center" Margin="5 0" Content="{Binding CharFrom}" Style="{StaticResource MaterialDesignActionToggleButton}"  materialDesign:ShadowAssist.ShadowDepth="Depth3" />
+                                <TextBlock Text="{Binding From}"  Foreground="White" VerticalAlignment="Center" Margin="5 0 15 0 "/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Day}" Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text="/" Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Month}" Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text="/" Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Year}" Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text="  " Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Hour}" Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text=":" Foreground="White"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding  DateMassege.Minute}" Foreground="White"/>
+                            </StackPanel>
+                           
+                            <StackPanel VerticalAlignment="Top" >
+                                <TextBlock Text="WebBrowser" Foreground="White"/>
+                                <ToggleButton x:Name="WebBrowserTogger" Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                                    <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                        <SolidColorBrush   Color="White" />
+                                    </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                    <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                        <SolidColorBrush Color="White" />
+                                    </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                </ToggleButton>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <Grid Grid.Row="1" DataContext="{Binding mailUserControlViewModelClass, Source={StaticResource Locator}}" >
+                        <Grid Style="{StaticResource OpenHtml}" VerticalAlignment="Top" >
+                            <WebBrowser  validators:WebBrowserUtilityUser.BindableSource="{Binding ReportPage}" />
+                        </Grid>
+                        <ScrollViewer HorizontalScrollBarVisibility="Hidden">
+                            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="14" Text="{Binding BodyText }" DataContext="{Binding SelectMessage}" Margin="10" />
+                        </ScrollViewer>
+                       
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" DataContext="{Binding mailUserControlViewModelClass, Source={StaticResource Locator}}">
+                        <Button Command="{Binding BackCommand}"  Margin="10 5 5 5"  Width="200"    Background="#141A21"  Style="{StaticResource MaterialDesignFlatButton}" >
+                            <StackPanel Orientation="Horizontal" >
+                                <Border BorderBrush="#607D8B" BorderThickness="1">
+                                    <materialDesign:PackIcon Kind="ChevronDoubleLeft"  VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Back" FontSize="14" Margin="5 0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="5"   Width="200"   Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <StackPanel Orientation="Horizontal"  >
+                                <materialDesign:PackIcon Kind="EmailReceive" Margin="5 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Reply to email" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="5" Width="200"  Command="{Binding DeleteMessageCommand}" CommandParameter="{Binding mailUserControlViewModelClass.SelectMessage,Source={StaticResource Locator}}" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                            <StackPanel Orientation="Horizontal"  >
+                                <materialDesign:PackIcon Kind="EmailMinus" Margin="5 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Deleted messages" FontSize="14"  />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </StackPanel>
     </Grid>

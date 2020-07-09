@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:MainHelper.WindowsProject"
         mc:Ignorable="d"
         Height="500" Width="1024"   WindowState="Normal" WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent"  MouseLeftButtonDown="Window_MouseLeftButtonDown" >
+        ResizeMode="NoResize" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" >
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridMenu">

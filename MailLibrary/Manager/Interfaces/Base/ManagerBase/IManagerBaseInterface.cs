@@ -17,5 +17,9 @@ namespace MailLibrary.Manager.Interfaces.Base
 
         void Indox();
 
+        void Delete(int index);
+
+        void FlagSeen(int index);
+
     }
 }

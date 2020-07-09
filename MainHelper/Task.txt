@@ -1,1 +1,1 @@
-[]
+[{"Body":"Подача документов ...","DateTimeTask":"2020-07-09T13:14:19.1423067+03:00","CheckTask":true,"CheckAlarm":false,"AlarmTimeTask":"2020-07-09T16:00:00","CategoryTask":{"ColorCategory":"#FF006400","Name":"Documents","Id":"a1c3c5fa-0f7c-4892-b38f-2246cdfed85d"},"Priority":"High","Name":"","Id":"9536c9e4-80da-413a-a22b-9e39f32713f0"}]

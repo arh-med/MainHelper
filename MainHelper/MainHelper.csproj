@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="UserControlProject\UserControlTask\TaskUserControlViewModelClass.cs" />
     <Compile Include="UserControlProject\UserControlTask\Validators\NameCategoryValidator.cs" />
+    <Compile Include="UserControlProject\UserControlTask\Validators\WebBrowserUtilityUser.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="WindowsProject\HomePanel.xaml.cs">
       <DependentUpon>HomePanel.xaml</DependentUpon>

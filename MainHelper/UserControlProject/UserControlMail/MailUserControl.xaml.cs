@@ -23,7 +23,7 @@ namespace MainHelper.UserControlProject.UserControlMail
         public MailUserControl()
         {
             InitializeComponent();
-           
+            txt_Password.Password = txt_PasswordTextBloc.Text;
         }
     }
 }
