@@ -17,6 +17,7 @@ namespace MailLibrary.Manager.Interfaces.Implementation
 {
     public class MailManagerDataClass : IMailManagerInterface
     {
+        #region MailKit Imap
         ImapClient client;
         IMailFolder folderMail;
         
@@ -26,10 +27,8 @@ namespace MailLibrary.Manager.Interfaces.Implementation
         {
             client = new ImapClient();
                 try
-                {
-                    client.Connect(mail, port, true);
-                    client.Authenticate(login, password);
-                   
+                {client.Connect(mail, port, true);
+                 client.Authenticate(login, password);  
                 return true;
                 }
                 catch (Exception)
@@ -39,13 +38,8 @@ namespace MailLibrary.Manager.Interfaces.Implementation
                
         }
         public void Indox()
-        {
-            folderMail = client.Inbox;
-            folderMail.Open(FolderAccess.ReadWrite);
-          
-
-
-        }
+        { folderMail = client.Inbox;
+          folderMail.Open(FolderAccess.ReadWrite); }
 
         public ObservableCollection<MailClass> GetAll(int Count, int returnMessage)
         {
@@ -58,17 +52,11 @@ namespace MailLibrary.Manager.Interfaces.Implementation
                 var message = client.Inbox.GetMessage(i);
                 char CharFrom = message.From.ToString().ToArray()[1];
                 var folderMailInfo = client.Inbox.Fetch(new[] { i }, MessageSummaryItems.Flags);
-               
                 if (folderMailInfo[0].Flags.ToString() == "Seen")
-                {
-                    Flag = false;
-                }
+                {Flag = false;}
                 else
-                {
-                    Flag = true;
-                }
-
-                MailClass mailClass = new MailClass(i,message.Subject, message.From.ToString(), CharFrom, message.HtmlBody,message.TextBody, message.Date.DateTime, true, Flag);
+                { Flag = true; }
+                MailClass mailClass = new MailClass(i,message.Subject, message.From.ToString(), CharFrom, message.HtmlBody,message.TextBody, message.Date.DateTime, false, Flag);
                 mailClasses.Add(mailClass);
             }
             return mailClasses;
@@ -84,9 +72,17 @@ namespace MailLibrary.Manager.Interfaces.Implementation
             folderMail.AddFlags(index, MessageFlags.Deleted, false);
             client.Disconnect(false);
         }
+        public void DeleteRange(IList<int> indexList)
+        {
+            folderMail.AddFlags(indexList, MessageFlags.Deleted,false);
+            client.Disconnect(false);
+        }
+
         public void FlagSeen(int index)
         {
             folderMail.AddFlags(index, MessageFlags.Seen, true);
         }
+        #endregion
+
     }
 }

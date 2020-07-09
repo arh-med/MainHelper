@@ -57,6 +57,7 @@
     <Compile Include="Entityes\Base\EntityBaseClass.cs" />
     <Compile Include="Entityes\Base\EntityNameClass.cs" />
     <Compile Include="Entityes\MailClass.cs" />
+    <Compile Include="Entityes\SendMailClass.cs" />
     <Compile Include="Manager\Interfaces\Base\ManagerBase\IManagerBaseInterface.cs" />
     <Compile Include="Manager\Implementation\MailManagerDataClass.cs" />
     <Compile Include="Manager\Interfaces\MailInterface\IMailManagerInterface.cs" />

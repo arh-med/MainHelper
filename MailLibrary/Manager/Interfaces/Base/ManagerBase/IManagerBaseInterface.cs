@@ -19,6 +19,8 @@ namespace MailLibrary.Manager.Interfaces.Base
 
         void Delete(int index);
 
+        void DeleteRange(IList<int> indexList);
+
         void FlagSeen(int index);
 
     }

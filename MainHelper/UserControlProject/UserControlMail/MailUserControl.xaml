@@ -143,7 +143,7 @@
                                 <TextBlock Text="Inbox" FontSize="14"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="5" Width="200" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
+                        <Button Command="{Binding DeleteRangeMessageCommand}" Margin="5" Width="200" Background="#141A21" Style="{StaticResource MaterialDesignFlatButton}"  >
                             <StackPanel Orientation="Horizontal"  >
                                 <materialDesign:PackIcon Kind="EmailMinus" Margin="5 0" VerticalAlignment="Center"/>
                                 <TextBlock Text="Deleted messages" FontSize="14"  />
@@ -182,7 +182,7 @@
                                             </Style>
                                         </materialDesign:PackIcon.Style>
                                     </materialDesign:PackIcon>
-                                    <ToggleButton VerticalAlignment="Center" Margin="5 0" Content="{Binding  CharFrom}" Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="{Binding From}" materialDesign:ShadowAssist.ShadowDepth="Depth3" />
+                                    <ToggleButton IsChecked="{Binding CheckMail}" VerticalAlignment="Center" Margin="5 0" Content="{Binding  CharFrom}" Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="{Binding From}" materialDesign:ShadowAssist.ShadowDepth="Depth3" />
                                     <!--<TextBlock x:Name="FromText" Text="{Binding From}" Foreground="White"/>-->
                                     <TextBlock Width="700" VerticalAlignment="Center" Text="{Binding  Headline}" Foreground="White"/>
                                     <StackPanel Orientation="Horizontal">

@@ -244,6 +244,35 @@ namespace MainHelper.UserControlProject.UserControlMail
             SelectMessageBool = false;
 
         }
+
+        public ICommand DeleteRangeMessageCommand { get; }
+        private bool CanDeleteRangeMessageCommandExecute()
+        {
+            return true;
+        }
+        private void OnDeleteRangeMessageCommandExecute()
+        {
+            IList<int> massegaRange = new List<int>();
+            foreach (MailClass mail in Mails)
+            {
+                if (mail.CheckMail == true)
+                {
+                    massegaRange.Add(mail.Uid);
+                }
+            }
+            mailManager.DeleteRange(massegaRange);
+
+            bool mailConnection = mailManager.Connection(Login, Password, SelectComboBoxMail, 993);
+            if (mailConnection == true)
+            {
+                mailManager.Indox();
+                CountMessage = mailManager.Count();
+                Mails = new ObservableCollection<MailClass>(mailManager.GetAll(CountMessage, 10));
+            }
+
+            SelectMessageBool = false;
+
+        }
         public MailUserControlViewModelClass(IMailManagerInterface mailManager)
         {
             if ((bool)Settings.Default["Remember"] == true)
@@ -255,6 +284,7 @@ namespace MainHelper.UserControlProject.UserControlMail
             this.mailManager = mailManager;
             ConnectCommand = new RelayCommand<object>(OnConnectCommandExecute, CanDeleteMessageCommandExecute);
             DeleteMessageCommand = new RelayCommand<object>(OnDeleteMessageCommandExecute, CanConnectCommandExecute);
+            DeleteRangeMessageCommand = new RelayCommand(OnDeleteRangeMessageCommandExecute, CanDeleteRangeMessageCommandExecute);
             NextPageCommand = new RelayCommand(OnNextPageCommandExecute, CanNextPageCommandExecute);
             BackPageCommand = new RelayCommand(OnBackPageCommandExecute, CanBackPageCommandExecute);
             ComboBoxMailAddress = new List<string> { "imap.mail.ru" };
