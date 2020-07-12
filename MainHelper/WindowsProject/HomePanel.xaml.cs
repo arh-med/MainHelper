@@ -1,4 +1,5 @@
 ﻿using MainHelper.UserControlProject.UserControlBook;
+using MainHelper.UserControlProject.UserControlMail;
 using MainHelper.UserControlProject.UserControlTask;
 using System;
 using System.Collections.Generic;
@@ -23,23 +24,37 @@ namespace MainHelper.WindowsProject
     {
         BookUserControl bookUserControl;
         TaskUserControl taskUserControl;
+        MailUserControl mailUserControl;
         public HomePanel()
         {
             InitializeComponent();
             bookUserControl = new BookUserControl();
             taskUserControl = new TaskUserControl();
+            mailUserControl = new MailUserControl();
         }
 
         private void ListViewItemBookUserControl(object sender, MouseButtonEventArgs e)
         {
             GridAddUserControl.Children.Clear();
             GridAddUserControl.Children.Add(bookUserControl);
+            if (gridMenu.Width == 200)
+                buttonOpenMenu.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         private void ListViewItemTaskUserControl(object sender, MouseButtonEventArgs e)
         {
             GridAddUserControl.Children.Clear();
             GridAddUserControl.Children.Add(taskUserControl);
+            if (gridMenu.Width == 200)
+                buttonOpenMenu.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        }
+
+        private void ListViewItemMailUserControl(object sender, MouseButtonEventArgs e)
+        {
+            GridAddUserControl.Children.Clear();
+            GridAddUserControl.Children.Add(mailUserControl);
+            if (gridMenu.Width == 200)
+                buttonOpenMenu.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
     }
 }

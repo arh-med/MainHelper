@@ -1,1 +1,1 @@
-[{"ColorCategory":"#FF8B0000","Name":"Word","Id":"883bb308-0a15-4afc-8f86-4de206eb4e04"},{"ColorCategory":"#FFB8860B","Name":"Friends","Id":"c315caa5-fb8a-4e28-8b03-5cb78da36ad7"},{"ColorCategory":"#FF006400","Name":"Documents","Id":"51245d71-ac40-4dee-9556-b84d604cb089"}]
+[{"ColorCategory":"#FF006400","Name":"Health","Id":"130c05e4-c2e3-4ff7-8bf5-dee7397bef66"},{"ColorCategory":"#FF8B0000","Name":"Work","Id":"90a5feca-5c93-4a6b-9714-d796a18fd2e0"}]

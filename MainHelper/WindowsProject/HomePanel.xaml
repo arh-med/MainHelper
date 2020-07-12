@@ -4,23 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:task="clr-namespace:MainHelper.UserControlProject.UserControlTask"
-        xmlns:mail="clr-namespace:MainHelper.UserControlProject.UserControlMail"
-        xmlns:local="clr-namespace:MainHelper.WindowsProject"
+        xmlns:animation="clr-namespace:MainHelper.UserControlProject.UserControlAnimation"
         mc:Ignorable="d"
         Height="500" Width="1024"   WindowState="Normal" WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" >
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="50"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="200"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="ButtonMenuOpenVisibil">
@@ -65,16 +63,16 @@
             <ColumnDefinition Width="50"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gridMenu" Grid.ColumnSpan="2" Width="50" HorizontalAlignment="Left" Background="#141A21" Panel.ZIndex="1" >
+        <Grid x:Name="gridMenu" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Left" Background="#141A21" Panel.ZIndex="1" >
             <Button x:Name="buttonOpenMenu" Style="{StaticResource MaterialDesignFlatButton}" Background="{x:Null}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 5"  >
                 <materialDesign:PackIcon   Kind="Menu" Height="25" Width="25" Foreground="#607D8B"/>
             </Button>
             <Button  x:Name="buttonCloseMenu" Style="{StaticResource MaterialDesignFlatButton}" Background="{x:Null}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Visibility="Hidden" >
                 <materialDesign:PackIcon Kind="ArrowLeft" Height="25" Width="25" Foreground="#607D8B" />
             </Button>
-            <Grid VerticalAlignment="Bottom">
+            <Grid VerticalAlignment="Top" Margin="0 150 0 0">
                 <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="0 0 0 45">
+                    <StackPanel  >
                         <ListView >
                             <ListViewItem   Height="60" MouseLeftButtonUp="ListViewItemBookUserControl">
                                 <StackPanel Orientation="Horizontal">
@@ -88,16 +86,10 @@
                                     <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Task" FontFamily="Cambria Math" FontSize="16"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem  Height="60">
+                            <ListViewItem  Height="60" MouseLeftButtonUp="ListViewItemMailUserControl">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="NotesOutline" Height="25" Width="25" VerticalAlignment="Center"/>
                                     <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Mail" FontFamily="Cambria Math" FontSize="16"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem   Height="60">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="5,10" Foreground="#607D8B" Kind="PlaylistCheck" Height="25" Width="25" VerticalAlignment="Center"/>
-                                    <TextBlock Margin="20 10" VerticalAlignment="Center" Foreground="#607D8B" Text="Video" FontFamily="Cambria Math" FontSize="16"/>
                                 </StackPanel>
                             </ListViewItem>
                             <ListViewItem   Height="60">
@@ -112,8 +104,10 @@
             </Grid>  
         </Grid>
         <Grid Grid.Column="1" Background="#141A21" Opacity="1">
-            <Grid x:Name="GridAddUserControl">
-                <mail:MailUserControl/>
+            <Grid x:Name="GridAddUserControl" Background="#141A21">
+                <animation:LoadingUserControl/>
+
+
             </Grid>
             <StackPanel x:Name="stackPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Margin="0 0 10 0">
                 <StackPanel.Resources>

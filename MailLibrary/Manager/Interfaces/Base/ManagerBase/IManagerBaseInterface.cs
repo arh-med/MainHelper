@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailLibrary.Entityes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,6 +23,11 @@ namespace MailLibrary.Manager.Interfaces.Base
         void DeleteRange(IList<int> indexList);
 
         void FlagSeen(int index);
+
+        SendMailClass CreatedEmail(string AddressSender, string NameSender, string AddresRecipient, string BodyMessage, string AddressServer, int Port, string Login, string Password,string Headline);
+
+        string SendEmail(SendMailClass sendMailClass);
+        
 
     }
 }

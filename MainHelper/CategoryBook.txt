@@ -1,1 +1,1 @@
-[{"ColorCategory":"#FF8B0000","Name":"Work day","Id":"f985367b-094f-4705-acb1-8047c88d1778"},{"ColorCategory":"#FFB8860B","Name":"Happy","Id":"8fed3d05-b985-4fa1-b4fc-f3e0999aca90"},{"ColorCategory":"#FF006400","Name":"Рабочичй день","Id":"03302606-e1fc-489e-bd7f-fc92eecf094b"}]
+[{"ColorCategory":"#FF8B008B","Name":"Малоэффективный","Id":"99ecb7dd-a5af-47a7-8cc5-e34e42ed7c86"}]

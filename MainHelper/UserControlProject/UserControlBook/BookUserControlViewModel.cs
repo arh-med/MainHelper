@@ -71,6 +71,7 @@ namespace MainHelper.UserControlProject.UserControlBook
             }
         }
         #endregion
+
         #region Collections Category
         private ObservableCollection<CategoryClass> categories;
         public ObservableCollection<CategoryClass> Categories
@@ -98,6 +99,7 @@ namespace MainHelper.UserControlProject.UserControlBook
             }
         }
         #endregion
+
         #region Command Category
         public ICommand AddCategoryCommand { get; }
         private bool CanAddCategoryCommandExecute()
@@ -116,6 +118,7 @@ namespace MainHelper.UserControlProject.UserControlBook
             ColorCategory = null;
         }
         #endregion
+
         #region Book
         IBookManagerInterface bookManager;
         private string headline;
@@ -194,6 +197,7 @@ namespace MainHelper.UserControlProject.UserControlBook
         }
 
         #endregion
+
         #region Collections Book
         private ObservableCollection<CategoryClass> categoryClassesList;
         public ObservableCollection<CategoryClass> CategoryClassesList
@@ -232,6 +236,7 @@ namespace MainHelper.UserControlProject.UserControlBook
             }
         }
         #endregion
+
         #region Command Book
         public ICommand AddCategoryInListCommand { get; }
         private bool CanAddCategoryInListCommandExecute()
@@ -357,6 +362,7 @@ namespace MainHelper.UserControlProject.UserControlBook
             }
         }
         #endregion
+
         public BookUserControlViewModel(ICategoryBookManagerInterface categoryManager, IBookManagerInterface bookManager)
         {
            
@@ -366,6 +372,7 @@ namespace MainHelper.UserControlProject.UserControlBook
             Categories = new ObservableCollection<CategoryClass>(categoryManager.GetAll());
             AddCategoryCommand = new RelayCommand(OnAddCategoryCommandExecute, CanAddCategoryCommandExecute);
             #endregion
+
             #region Book
             this.bookManager= bookManager;
             Books = new ObservableCollection<BookClass>(bookManager.GetAll());

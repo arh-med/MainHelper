@@ -12,11 +12,16 @@ using System.Threading.Tasks;
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
+using System.Threading;
 
 namespace MailLibrary.Manager.Interfaces.Implementation
 {
     public class MailManagerDataClass : IMailManagerInterface
     {
+       
         #region MailKit Imap
         ImapClient client;
         IMailFolder folderMail;
@@ -40,6 +45,7 @@ namespace MailLibrary.Manager.Interfaces.Implementation
         public void Indox()
         { folderMail = client.Inbox;
           folderMail.Open(FolderAccess.ReadWrite); }
+      
 
         public ObservableCollection<MailClass> GetAll(int Count, int returnMessage)
         {
@@ -82,6 +88,49 @@ namespace MailLibrary.Manager.Interfaces.Implementation
         {
             folderMail.AddFlags(index, MessageFlags.Seen, true);
         }
+        #endregion
+        #region Smtpclient
+
+        public SendMailClass CreatedEmail(string AddressSender, string NameSender, string AddresRecipient, string BodyMessage, string AddressServer, int Port, string Login, string Password,string Headline)
+        {
+            SendMailClass sendMailClass = new SendMailClass( AddressSender,  NameSender,  AddresRecipient,  BodyMessage,  AddressServer,  Port,  Login,  Password, Headline);
+            return sendMailClass;
+        }
+        public string SendEmail(SendMailClass sendMailClass)
+        {
+            string sendMessage;
+            try
+            {
+                MailAddress from = new MailAddress(sendMailClass.AddressSender, sendMailClass.NameSender);
+
+                MailAddress to = new MailAddress(sendMailClass.AddresRecipient);
+
+                MailMessage m = new MailMessage(from, to);
+
+                m.Subject = sendMailClass.Headline;
+
+                m.Body = sendMailClass.BodyMessage;
+
+                m.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient(sendMailClass.AddressServer, sendMailClass.Port);
+
+                smtp.Credentials = new NetworkCredential(sendMailClass.Login, sendMailClass.Password);
+                smtp.EnableSsl = true;
+                smtp.Send(m);
+                sendMessage = "Message sent";
+                return sendMessage;
+            }
+            catch (Exception e)
+            {
+                sendMessage = e.ToString();
+                return sendMessage;
+            }
+           
+            
+        }
+
+
         #endregion
 
     }
